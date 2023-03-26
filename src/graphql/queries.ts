@@ -17,7 +17,7 @@ export const GET_ALL_POSTS = gql`
 `
 export const GET_ALL_MATERIALS = gql `
     query GetMaterials {
-        materials {
+        materials (orderBy: publishedAt_DESC){
             title
             category
             content {

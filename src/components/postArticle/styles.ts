@@ -56,8 +56,8 @@ export const PostFooterContent = styled.View`
 `;
 
 export const PostFooterText = styled.Text`
-    color: #afafaf;
-    font-size: 12px;
-    margin-left: 7px;
+  color: #afafaf;
+  font-size: 12px;
+  margin-left: 5px;
 `;
 
