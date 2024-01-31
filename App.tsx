@@ -16,9 +16,8 @@ const client = new ApolloClient({
 export default function App() {
 
   let [fontsLoaded] = useFonts({
-    UnifrakturCook_700Bold
-  }
-  );
+    UnifrakturCook_700Bold,
+  });
   
   if (!fontsLoaded) {
     return null;
