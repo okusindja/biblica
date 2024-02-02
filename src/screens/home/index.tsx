@@ -15,20 +15,42 @@ const Home = () => {
   const img5 = require('../../../assets/banner5.jpg');
   return (
     <Container>
-      <TouchableOpacity onPress={() => { navigation.navigate('Conteúdo', {screen: 'Evangelho'})} }>
-        <Banner size='L' title='Evangelho' img={img1} />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Conteúdo", { screen: "Evangelho" });
+        }}
+      >
+        <Banner size="L" title="Evangelho" img={img1} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => { navigation.navigate('Conteúdo', {screen: 'Ensinos'})} }>
-        <Banner size='L' title='Ensinos' img={img2} />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Conteúdo", { screen: "Ensinos" });
+        }}
+      >
+        <Banner size="L" title="Ensinos" img={img2} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => { navigation.navigate('Conteúdo', {screen: 'Planos de meditação'})} }>
-        <Banner size='L' title='Planos de meditação' img={img3} />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Conteúdo", { screen: "Planos de meditação" });
+        }}
+      >
+        <Banner size="L" title="Planos de meditação" img={img3} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => { navigation.navigate('Conteúdo', {screen: 'Planos de oração'})} }>
-        <Banner size='L' title='Planos de oração' img={img4} />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Conteúdo", { screen: "Planos de oração" });
+        }}
+      >
+        <Banner size="L" title="Planos de oração" img={img4} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => { navigation.navigate('Conteúdo', {screen: 'Solicitar aconselhamento'})} }>
-        <Banner size='L' title='Solicitar aconselhamento' img={img5} />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Conteúdo", {
+            screen: "Solicitar aconselhamento",
+          });
+        }}
+      >
+        <Banner size="L" title="Solicitar aconselhamento" img={img5} />
       </TouchableOpacity>
     </Container>
   );
