@@ -26,10 +26,10 @@ const Posts = () => {
       }
     >
       <Input
-        placeholder="Procurar postagem por autor ou titulo"
-        mode="text"
         value=""
         mb="20px"
+        mode="text"
+        placeholder="Procurar postagem por autor ou titulo"
       />
       <CardContainer>
         <Card item={data?.posts[0]} />
@@ -40,10 +40,10 @@ const Posts = () => {
         data={data?.posts.slice(1, total)}
         renderItem={({ item }) => (
           <PostArticle
-            image={item.image.url}
             title={item.title}
-            author={item.authors[0].name}
             category={item.post}
+            image={item.image.url}
+            author={item.authors[0].name}
           />
         )}
       />
