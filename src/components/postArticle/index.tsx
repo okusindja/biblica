@@ -3,12 +3,14 @@ import { AntDesign, Ionicons  } from "@expo/vector-icons";
 import { Container, Line, PostImage, PostText, PostFooter, Title, PostFooterText, PostFooterContent, TitleWrapper } from './styles'
 
 interface Props {
-    title: string;
-    image?: {
+  title: string;
+  image?:
+    | {
         url: string;
-    };
-    author?: any;
-    category?: string;
+      }
+    | string;
+  author?: any;
+  category?: string;
 }
 
 const PostArticle = ({title, image, author, category}: Props) => {

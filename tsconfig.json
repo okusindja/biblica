@@ -4,19 +4,19 @@
     "strict": true,
     "plugins": [
       {
-          "name": "@styled/typescript-styled-plugin",
-          "tags": ["styled", "css", "sty"],
-          "lint": {
-            "vendorPrefix": "error",
-            "zeroUnits": "error",
-            "unknownProperties": "error",
-            "duplicateProperties": "warning",
-            "emptyRules": "warning",
-            "universalSelector": "warning",
-            "showSuggestionsAsSnippets": true,
-            "showExpandedAbbreviation": "always"
+        "name": "@styled/typescript-styled-plugin",
+        "tags": ["styled", "css", "sty"],
+        "lint": {
+          "vendorPrefix": "error",
+          "zeroUnits": "error",
+          "unknownProperties": "error",
+          "duplicateProperties": "warning",
+          "emptyRules": "warning",
+          "universalSelector": "warning",
+          "showSuggestionsAsSnippets": true,
+          "showExpandedAbbreviation": "always"
         }
       }
-  ]
+    ]
   }
 }

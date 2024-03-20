@@ -1,51 +1,36 @@
-import Gospel from '../screens/home/gospel';
-import Teachings from '../screens/home/teachings';
-import Praying from '../screens/home/praying';
-import Meditation from '../screens/home/meditation';
-import Advices from '../screens/home/advices';
-import { Home } from '../screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export type ContentStackParams = {
-  Home: undefined;
-  Evangelho: undefined;
-  Ensinos: undefined;
-  'Planos de meditação': undefined;
-  'Planos de oração': undefined;
-  'Solicitar aconselhamento': undefined;
-};
-  
-export const ContentStack = createNativeStackNavigator<ContentStackParams>();
+import { HomeScreen } from '../screens';
+import Advices from '../screens/home/advices';
+import Classes from '../screens/home/classes';
+import ClassDetails from '../screens/home/classes/class-details';
+import Contents from '../screens/home/contents';
+import Evaluation from '../screens/home/evaluation';
+import Gospel from '../screens/home/gospel';
+import Meditation from '../screens/home/meditation';
+import Praying from '../screens/home/praying';
+import Teachings from '../screens/home/teachings';
 
-export function Content() {
+export const Stack = createNativeStackNavigator();
+
+const ContentStack = () => {
   return (
-    <ContentStack.Navigator initialRouteName='Home' 
-    screenOptions={{headerShown: false}}
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{ headerShown: false }}
     >
-      <ContentStack.Screen
-        name="Home"
-        component={Home}
-      />
-      <ContentStack.Screen
-        name="Evangelho"
-        component={Gospel}
-      />
-      <ContentStack.Screen
-        name="Ensinos"
-        component={Teachings}
-      />
-      <ContentStack.Screen
-        name="Planos de meditação"
-        component={Meditation}
-      />
-      <ContentStack.Screen
-        name="Planos de oração"
-        component={Praying}
-      />
-      <ContentStack.Screen
-        name="Solicitar aconselhamento"
-        component={Advices}
-      />
-    </ContentStack.Navigator>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Turma" component={ClassDetails} />
+      <Stack.Screen name="Aula" component={Contents} />
+      <Stack.Screen name="Avaliação" component={Evaluation} />
+      <Stack.Screen name="Turmas" component={Classes} />
+      <Stack.Screen name="Evangelho" component={Gospel} />
+      <Stack.Screen name="Ensinos" component={Teachings} />
+      <Stack.Screen name="Planos de meditação" component={Meditation} />
+      <Stack.Screen name="Planos de oração" component={Praying} />
+      <Stack.Screen name="Solicitar aconselhamento" component={Advices} />
+    </Stack.Navigator>
   );
-}
+};
+
+export default ContentStack;

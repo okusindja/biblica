@@ -5,16 +5,25 @@ import { useNavigation } from '@react-navigation/native';
 import { Header, Title } from './styles';
 
 interface Props {
-    title: string;
+  title: string;
+  notIsGoBack?: boolean;
 }
 
-const ContentHeader = ({title}: Props) => {
+const ContentHeader = ({ title, notIsGoBack }: Props) => {
   const navigation = useNavigation();
   return (
-    <Header><TouchableOpacity onPress={() => navigation.goBack()}>
-        <MaterialCommunityIcons name='chevron-left' size={45} color='#E21F2C' />
-      </TouchableOpacity>
-      <Title>{title}</Title></Header>
+    <Header>
+      {!notIsGoBack && (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialCommunityIcons
+            name="chevron-left"
+            size={45}
+            color="#E21F2C"
+          />
+        </TouchableOpacity>
+      )}
+      <Title>{title}</Title>
+    </Header>
   );
 };
 

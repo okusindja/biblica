@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
 
 const useFirstVisit = (): [boolean, () => Promise<void>] => {
   const [firstVisit, setFirstVisit] = useState<boolean>(true);
@@ -7,12 +7,12 @@ const useFirstVisit = (): [boolean, () => Promise<void>] => {
   useEffect(() => {
     const checkFirstVisit = async () => {
       try {
-        const hasVisited = await AsyncStorage.getItem("hasVisited");
+        const hasVisited = await AsyncStorage.getItem('hasVisited');
         if (hasVisited !== null) {
-          setFirstVisit(false);
+          setFirstVisit(true);
         }
       } catch (error) {
-        console.error("Error reading AsyncStorage:", error);
+        console.error('Error reading AsyncStorage:', error);
       }
     };
 
@@ -21,10 +21,10 @@ const useFirstVisit = (): [boolean, () => Promise<void>] => {
 
   const setVisited = async () => {
     try {
-      await AsyncStorage.setItem("hasVisited", "true");
+      await AsyncStorage.setItem('hasVisited', 'true');
       setFirstVisit(false);
     } catch (error) {
-      console.error("Error saving to AsyncStorage:", error);
+      console.error('Error saving to AsyncStorage:', error);
     }
   };
 

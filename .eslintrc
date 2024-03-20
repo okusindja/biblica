@@ -1,0 +1,78 @@
+{
+  // "settings": {
+  //   "import/resolver": {
+  //     "alias": {
+  //       "map": {
+  //         "@/HOC": "./components/HOC",
+  //         "@/components": "./components",
+  //         "@/context": "./context",
+  //         "@/constants": "./constants",
+  //         "@/design-system": "./design-system",
+  //         "@/elements": "./elements",
+  //         "@/hooks": "./hooks",
+  //         "@/interface": "./interface",
+  //         "@/lib": "./lib",
+  //         "@/utils": "./utils",
+  //         "@/views": "./views",
+  //         "@/api": "./api",
+  //         "@/state": "./state"
+  //       },
+  //       "extensions": [".js", ".jsx", ".ts", ".tsx"]
+  //     }
+  //   }
+  // },
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "react-native/react-native": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/jsx-runtime"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "simple-import-sort",
+    "react",
+    "react-native",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "varsIgnorePattern": "^React$" }
+    ],
+    "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
+    "linebreak-style": ["error", "unix"],
+    "semi": ["error", "always"],
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "react-native/no-unused-styles": 2,
+    "react-native/split-platform-components": 2,
+    "react-native/sort-styles": [
+      "error",
+      "asc",
+      {
+        "ignoreClassNames": false,
+        "ignoreStyleProperties": false
+      }
+    ]
+  }
+}

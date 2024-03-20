@@ -2,10 +2,10 @@ import React from 'react';
 import { Container } from './styles'
 import { FlatList, Text } from 'react-native'
 import { PostArticle, Skeleton } from '../../../components';
-import { useQuery } from '@apollo/client';
-import { GET_ALL_MATERIALS } from '../../../graphql/queries';
-import { useRefresh } from "../../../utils/useRefresh";
+import { useQuery } from "@apollo/client";
 import { RefreshControl } from "react-native";
+import { useRefresh } from "../../../hooks";
+import { GET_ALL_MATERIALS } from "../../../graphql";
 
 
 const Teachings = () => {

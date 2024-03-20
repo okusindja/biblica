@@ -1,7 +1,6 @@
-import { SVGAttributes } from "react";
-import { StyleProp, ViewStyle } from "react-native";
+import { SvgProps } from 'react-native-svg';
 
-export interface SVGProps {
-  maxHeight: any;
-  maxWidth: any;
+export interface SVGProps extends SvgProps {
+  maxHeight: number;
+  maxWidth: number;
 }

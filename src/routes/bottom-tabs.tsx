@@ -1,79 +1,85 @@
-import {
-    View,
-    Text,
-    Button,
-    TouchableOpacity,
-    StyleSheet,
-    Image,
-  } from "react-native";
-  import React from "react";
-  import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-  import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-  import { Donations, Home, Posts, PreachPlace } from "../screens";
-import { NavigatorScreenParams } from "@react-navigation/native";
-import { Content, ContentStackParams } from "./content";
-import { LogoSVG } from "../components/svg";
+import { useQuery } from '@apollo/client';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { FC } from 'react';
+import { Pressable, Text, TouchableOpacity } from 'react-native';
 
-export type BottomTabParams = {
-  Início: undefined;
-  Púlpito: undefined;
-  Conteúdo: NavigatorScreenParams<ContentStackParams>;
-};
+import { LogoSVG } from '../components/svg';
+import { FIREBASE_AUTH } from '../FirebaseConfig';
+import { GET_STUDENT_BY_AUTH_ID } from '../graphql';
+import { PostsScreen, PreachPlaceScreen } from '../screens';
+import UserInfo from '../screens/user-info';
+import ContentStack from './content';
 
-const Tab = createBottomTabNavigator<BottomTabParams>();
+const Tab = createBottomTabNavigator();
 
 type MaterialIconName = React.ComponentProps<
   typeof MaterialCommunityIcons
->["name"];
+>['name'];
 let iconName: MaterialIconName;
 
-export const Routes = () => (
-  <Tab.Navigator
-    screenOptions={({ route }: any) => ({
-      tabBarIcon: ({ focused, color, size }: any) => {
-        if (route.name === "Início") {
-          iconName = focused ? "home-variant" : "home-variant-outline";
-        } else if (route.name === "Conteúdo") {
-          iconName = focused ? "bookshelf" : "bookshelf";
-        } else if (route.name === "Doações") {
-          iconName = focused ? "cards-heart" : "cards-heart-outline";
-        } else if (route.name === "Púlpito") {
-          iconName = focused ? "microphone" : "microphone";
-        }
+export const Routes: FC = () => {
+  const auth = FIREBASE_AUTH.currentUser?.uid;
 
-        return (
-          <MaterialCommunityIcons name={iconName} size={size} color={color} />
-        );
-      },
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => {
-            // Do something
-          }}
-          style={{ paddingRight: 20 }}
-        >
-          <Ionicons name="ios-person-circle-outline" size={32} color="gray" />
-        </TouchableOpacity>
-      ),
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => {
-            // Do something
-          }}
-          style={{ paddingLeft: 20 }}
-        >
-          <LogoSVG maxWidth={30} maxHeight={42} />
-        </TouchableOpacity>
-      ),
-      tabBarActiveTintColor: "#E21F2C",
-      tabBarInactiveTintColor: "gray",
-      headerStyle: { height: 80 },
-      headerTitleStyle: { fontSize: 18 },
-    })}
-  >
-    <Tab.Screen name="Início" component={Posts} />
-    <Tab.Screen name="Conteúdo" component={Content} />
-    <Tab.Screen name="Púlpito" component={PreachPlace} />
-    {/* <Tab.Screen name="Doações" component={Donations} /> */}
-  </Tab.Navigator>
-);
+  const { data, loading, error } = useQuery(GET_STUDENT_BY_AUTH_ID, {
+    variables: {
+      authId: auth,
+    },
+  });
+  if (loading) return <Text>Loading...</Text>;
+  if (error) console.log(error);
+
+  console.log(data.student?.authId);
+  console.log('AuthID:', auth);
+
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          if (route.name === 'Início') {
+            iconName = focused ? 'home-variant' : 'home-variant-outline';
+          } else if (route.name === 'Conteúdo') {
+            iconName = focused ? 'bookmark' : 'bookmark';
+          } else if (route.name === 'Mais') {
+            iconName = focused
+              ? 'dots-vertical-circle'
+              : 'dots-vertical-circle-outline';
+          } else if (route.name === 'Púlpito') {
+            iconName = focused ? 'microphone' : 'microphone';
+          } else if (route.name === 'Livraria') {
+            iconName = focused ? 'bookshelf' : 'bookshelf';
+          }
+
+          return (
+            <MaterialCommunityIcons name={iconName} size={size} color={color} />
+          );
+        },
+        headerRight: () => (
+          <Pressable style={{ paddingRight: 20 }}>
+            <Ionicons name="notifications" size={32} color="gray" />
+          </Pressable>
+        ),
+        headerLeft: () => (
+          <TouchableOpacity
+            onPress={() => {
+              // Do something
+            }}
+            style={{ paddingLeft: 20 }}
+          >
+            <LogoSVG maxWidth={30} maxHeight={42} />
+          </TouchableOpacity>
+        ),
+        tabBarActiveTintColor: '#E21F2C',
+        tabBarInactiveTintColor: 'gray',
+        headerStyle: { height: 80 },
+        headerTitleStyle: { fontSize: 18 },
+      })}
+    >
+      <Tab.Screen name="Início" component={PostsScreen} />
+      <Tab.Screen name="Conteúdo" component={ContentStack} />
+      <Tab.Screen name="Livraria" component={UserInfo} />
+      <Tab.Screen name="Púlpito" component={PreachPlaceScreen} />
+      <Tab.Screen name="Mais" component={UserInfo} />
+    </Tab.Navigator>
+  );
+};

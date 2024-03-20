@@ -10,7 +10,7 @@ interface Props {
 
 const Banner = ({size, title, img}: Props) => {
   return (
-    <Container size={size} source={img} resizeMode='cover'>
+    <Container size={size} source={img} resizeMode="cover">
       <Title>{title}</Title>
       <Overlay />
     </Container>

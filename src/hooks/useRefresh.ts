@@ -1,6 +1,6 @@
 import React from "react";
 
-export const useRefresh = (callback: () => void) => {
+const useRefresh = (callback: () => void) => {
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = React.useCallback(() => {
@@ -13,3 +13,5 @@ export const useRefresh = (callback: () => void) => {
 
   return { refreshing, onRefresh };
 };
+
+export default useRefresh;
