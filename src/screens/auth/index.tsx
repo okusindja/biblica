@@ -8,9 +8,9 @@ import React, { FC, useState } from 'react';
 import { Text } from 'react-native';
 
 import AuthLayout from '../../components/layout/auth-layout';
-import Login from './forms/login';
-import SignIn from './forms/sign-up';
 import Welcome from './welcome';
+import SignUp from './forms/sign-up';
+import Login from './forms/login';
 
 const Auth: FC = () => {
   const [isWelcome, setIsWelcome] = useState(true);
@@ -46,7 +46,7 @@ const Auth: FC = () => {
           onPressSignUp={handleSignUpPage}
         />
       )}
-      {isSignUp && <SignIn onPressLogin={handleLoginPage} />}
+      {isSignUp && <SignUp onPressLogin={handleLoginPage} />}
       {isLogin && <Login onPressSignUp={handleSignUpPage} />}
     </AuthLayout>
   );

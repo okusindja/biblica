@@ -16,11 +16,12 @@ import {
   RightArrowSVG,
   UserSecuredSVG,
 } from '../../../components/svg';
-import { Input } from '../../../elements';
+
 import { FIREBASE_AUTH } from '../../../FirebaseConfig';
 import { AuthPagesProps } from '../auth.types';
 import { styles as authStyles } from '../styles';
 import { styles } from './styles';
+import { Input } from '../../../elements';
 
 const Login: FC<Omit<AuthPagesProps, 'onPressLogin'>> = ({ onPressSignUp }) => {
   const [email, setEmail] = useState('');

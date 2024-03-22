@@ -10,3 +10,11 @@ export interface InputProps {
   isError?: boolean;
   onPressSuffix?: () => void;
 }
+
+export interface DateInputProps {
+  value: Date;
+  onChange: () => void;
+  title: string;
+  isError?: boolean;
+  inputErrorMessage?: string;
+}

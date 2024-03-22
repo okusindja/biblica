@@ -10,6 +10,10 @@ type StackNavigatorProps = {
   Turmas: undefined;
   Ensinos: undefined;
   Evangelho: undefined;
+  MoreStack: undefined;
+  Perfil: undefined;
+  Definições: undefined;
+  Informações: undefined;
   'Planos de oração': undefined;
   'Planos de meditação': undefined;
   'Solicitar aconselhamento': undefined;

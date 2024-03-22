@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import RNDateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
@@ -14,8 +14,9 @@ import {
 } from 'react-native';
 
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
-import { CREATE_STUDENT } from '../../graphql';
+import { CREATE_STUDENT, GET_STUDENT_BY_AUTH_ID } from '../../graphql';
 import { styles } from '../auth/forms/styles';
+import { Button, Input } from '../../elements';
 
 const UserInfo: FC = () => {
   const navigation = useNavigation();
@@ -30,6 +31,17 @@ const UserInfo: FC = () => {
 
   const numericValue = parseInt(yearsBeingChristian, 10);
 
+  const {
+    data,
+    loading: loadingStudent,
+    error: errorStudent,
+  } = useQuery(GET_STUDENT_BY_AUTH_ID, {
+    fetchPolicy: 'cache-and-network',
+    variables: {
+      authId: authId,
+    },
+  });
+
   const [createStudent, { loading, error }] = useMutation(CREATE_STUDENT, {
     variables: {
       name: name,
@@ -39,6 +51,9 @@ const UserInfo: FC = () => {
       authId: authId,
     },
   });
+
+  if (loadingStudent) return <ActivityIndicator />;
+  if (errorStudent) return <Text>{errorStudent.message}</Text>;
 
   const handleDateChange = (
     event: DateTimePickerEvent,
@@ -78,49 +93,67 @@ const UserInfo: FC = () => {
   return (
     <View style={styles.container}>
       <Text>Informações importantes para nós</Text>
-      <TextInput
+      <Input
+        variant="white"
         style={styles.input}
         placeholder="Nome"
-        value={name}
+        value={data.student.name ? data.student.name : name}
         onChangeText={(text) => setName(text)}
         autoCapitalize="none"
       />
-      {/* <TextInput
-        style={styles.input}
-        autoCapitalize="none"
-        placeholder="Data de Nascimento"
-        value={birthDate}
-        onChangeText={(text) => setBirthDate(text)}
-      /> */}
-      <RNDateTimePicker
-        display="calendar"
-        value={birthDate}
-        onChange={handleDateChange}
-      />
-      <TextInput
+      {/* {!data.student.birthdate && ( */}
+
+      <View
+        style={[
+          styles.input,
+          {
+            paddingHorizontal: 40,
+            backgroundColor: 'white',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 10,
+          },
+        ]}
+      >
+        <Text>Data de nascimento</Text>
+        <RNDateTimePicker
+          neutralButtonLabel="clear"
+          style={{ alignSelf: 'flex-start' }}
+          display="calendar"
+          value={birthDate}
+          onChange={handleDateChange}
+        />
+      </View>
+      {/* )} */}
+      <Input
+        variant="white"
         style={styles.input}
         autoCapitalize="none"
         placeholder="Denominação"
-        value={denomination}
+        value={
+          data.student.denomination ? data.student.denomination : denomination
+        }
         onChangeText={(text) => setDenomination(text)}
       />
-      <TextInput
+      <Input
+        variant="white"
         style={styles.input}
         autoCapitalize="none"
         inputMode="numeric"
         keyboardType="numeric"
         placeholder="Anos como Cristão"
-        value={yearsBeingChristian}
+        value={
+          data.student.yearsBeingChristian
+            ? data.student.yearsBeingChristian
+            : yearsBeingChristian
+        }
         onChangeText={(text) => setYearsBeingChristian(text)}
       />
-
       {error && <Text>{error.message}</Text>}
       {loading ? (
         <ActivityIndicator />
       ) : (
-        <Pressable onPress={handleMutation} style={styles.button}>
-          <Text style={styles.buttonText}>Salvar</Text>
-        </Pressable>
+        <Button onPress={handleMutation} variant="primary" title="Salvar" />
       )}
     </View>
   );

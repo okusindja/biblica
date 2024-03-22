@@ -1,7 +1,12 @@
 import 'react-native-gesture-handler';
 
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-// import AppLoading from 'expo-app-loading';
+import {
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from '@expo-google-fonts/poppins';
 import {
   UnifrakturCook_700Bold,
   useFonts,
@@ -31,6 +36,10 @@ export default function App() {
   const auth = FIREBASE_AUTH;
   const [fontsLoaded] = useFonts({
     UnifrakturCook_700Bold,
+    Poppins_400Regular,
+    Poppins_700Bold,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
   });
 
   // Handle user state changes

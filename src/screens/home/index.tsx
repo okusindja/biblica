@@ -1,69 +1,56 @@
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useQuery } from '@apollo/client';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { FlatList, RefreshControl, Text } from 'react-native';
 
-import { Banner } from '../../components';
-import { BottomTabParams } from '../../routes/bottom-tabs';
-import { StackTypes } from '../../routes/routes.types';
-import { Container } from './styles';
+import { Card, PostArticle, Skeleton } from '../../components';
 
-const Home = () => {
-  const navigation = useNavigation<StackTypes>();
-  const img0 = require('../../../assets/turmas.jpeg');
-  const img1 = require('../../../assets/banner1.jpg');
-  const img2 = require('../../../assets/banner2.jpg');
-  const img3 = require('../../../assets/banner3.jpg');
-  const img4 = require('../../../assets/banner4.jpg');
-  const img5 = require('../../../assets/banner5.jpg');
+import { GET_ALL_POSTS } from '../../graphql';
+import { useRefresh } from '../../hooks';
+import { CardContainer, Container, Title } from './styles';
+import { SearchSVG } from '../../components/svg';
+import { Input } from '../../elements';
+
+const Posts = () => {
+  const { data, refetch, loading } = useQuery(GET_ALL_POSTS, {
+    notifyOnNetworkStatusChange: true,
+  });
+
+  const { refreshing, onRefresh } = useRefresh(refetch);
+
+  const total = data?.posts.length;
+
+  if (loading) return <Skeleton form="banner-post" />;
+
   return (
-    <Container>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Turmas');
-        }}
-      >
-        <Banner size="L" title="Turmas" img={img0} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Conteúdo', { screen: 'Evangelho' });
-        }}
-      >
-        <Banner size="L" title="Evangelho" img={img1} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Conteúdo', { screen: 'Ensinos' });
-        }}
-      >
-        <Banner size="L" title="Ensinos" img={img2} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Conteúdo', { screen: 'Planos de meditação' });
-        }}
-      >
-        <Banner size="L" title="Planos de meditação" img={img3} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Conteúdo', { screen: 'Planos de oração' });
-        }}
-      >
-        <Banner size="L" title="Planos de oração" img={img4} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Conteúdo', {
-            screen: 'Solicitar aconselhamento',
-          });
-        }}
-      >
-        <Banner size="L" title="Solicitar aconselhamento" img={img5} />
-      </TouchableOpacity>
+    <Container
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
+      <Input
+        variant="white"
+        inputMode="text"
+        Prefix={SearchSVG}
+        placeholder="Procurar postagem por autor ou titulo"
+      />
+      <CardContainer>
+        <Card item={data?.posts[0]} />
+      </CardContainer>
+      <Title>Últimas postagens</Title>
+      <FlatList
+        scrollEnabled={false}
+        data={data?.posts.slice(1, total)}
+        renderItem={({ item }) => (
+          <PostArticle
+            title={item.title}
+            category={item.post}
+            image={item.image.url}
+            author={item.authors[0].name}
+          />
+        )}
+      />
     </Container>
   );
 };
 
-export default Home;
+export default Posts;

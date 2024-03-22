@@ -23,13 +23,14 @@ import {
   RightArrowSVG,
   UserSecuredSVG,
 } from '../../../components/svg';
-import { Input } from '../../../elements';
+
 import { FIREBASE_AUTH } from '../../../FirebaseConfig';
 import { AuthPagesProps } from '../auth.types';
 import { styles as authStyles } from '../styles';
 import { styles } from './styles';
+import { Input } from '../../../elements';
 
-const SignIn: FC<Omit<AuthPagesProps, 'onPressSignUp'>> = ({
+const SignUp: FC<Omit<AuthPagesProps, 'onPressSignUp'>> = ({
   onPressLogin,
 }) => {
   const [email, setEmail] = useState('');
@@ -194,4 +195,4 @@ const SignIn: FC<Omit<AuthPagesProps, 'onPressSignUp'>> = ({
   );
 };
 
-export default SignIn;
+export default SignUp;

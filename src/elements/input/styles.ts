@@ -8,6 +8,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: scale(50),
     flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#CDCDCD',
     height: scale(45),
     marginBottom: scale(10),
     paddingHorizontal: scale(20),

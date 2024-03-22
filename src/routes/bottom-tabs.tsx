@@ -2,7 +2,8 @@ import { useQuery } from '@apollo/client';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { FC } from 'react';
-import { Pressable, Text, TouchableOpacity } from 'react-native';
+import { Pressable, SafeAreaView, Text, TouchableOpacity } from 'react-native';
+import { scale } from 'react-native-size-matters';
 
 import { LogoSVG } from '../components/svg';
 import { FIREBASE_AUTH } from '../FirebaseConfig';
@@ -10,6 +11,7 @@ import { GET_STUDENT_BY_AUTH_ID } from '../graphql';
 import { PostsScreen, PreachPlaceScreen } from '../screens';
 import UserInfo from '../screens/user-info';
 import ContentStack from './content';
+import MoreStack from './more';
 
 const Tab = createBottomTabNavigator();
 
@@ -55,8 +57,8 @@ export const Routes: FC = () => {
           );
         },
         headerRight: () => (
-          <Pressable style={{ paddingRight: 20 }}>
-            <Ionicons name="notifications" size={32} color="gray" />
+          <Pressable style={{ paddingRight: scale(20) }}>
+            <Ionicons name="notifications" size={24} color="gray" />
           </Pressable>
         ),
         headerLeft: () => (
@@ -64,7 +66,7 @@ export const Routes: FC = () => {
             onPress={() => {
               // Do something
             }}
-            style={{ paddingLeft: 20 }}
+            style={{ paddingLeft: scale(20) }}
           >
             <LogoSVG maxWidth={30} maxHeight={42} />
           </TouchableOpacity>
@@ -79,7 +81,11 @@ export const Routes: FC = () => {
       <Tab.Screen name="Conteúdo" component={ContentStack} />
       <Tab.Screen name="Livraria" component={UserInfo} />
       <Tab.Screen name="Púlpito" component={PreachPlaceScreen} />
-      <Tab.Screen name="Mais" component={UserInfo} />
+      <Tab.Screen
+        options={{ headerShown: false }}
+        name="Mais"
+        component={MoreStack}
+      />
     </Tab.Navigator>
   );
 };

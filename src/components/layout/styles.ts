@@ -18,6 +18,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
   },
+  layout: {
+    backgroundColor: '#fff',
+    flex: 1,
+    padding: scale(20),
+  },
   logo: {
     top: scale(100),
   },

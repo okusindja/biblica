@@ -1,15 +1,15 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { HomeScreen } from '../screens';
-import Advices from '../screens/home/advices';
-import Classes from '../screens/home/classes';
-import ClassDetails from '../screens/home/classes/class-details';
-import Contents from '../screens/home/contents';
-import Evaluation from '../screens/home/evaluation';
-import Gospel from '../screens/home/gospel';
-import Meditation from '../screens/home/meditation';
-import Praying from '../screens/home/praying';
-import Teachings from '../screens/home/teachings';
+import Advices from '../screens/content/advices';
+import Classes from '../screens/content/classes';
+import ClassDetails from '../screens/content/classes/class-details';
+import Contents from '../screens/content/contents';
+import Evaluation from '../screens/content/evaluation';
+import Gospel from '../screens/content/gospel';
+import Meditation from '../screens/content/meditation';
+import Praying from '../screens/content/praying';
+import Teachings from '../screens/content/teachings';
 
 export const Stack = createNativeStackNavigator();
 

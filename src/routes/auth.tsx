@@ -4,8 +4,6 @@ import { WelcomeScreen } from '../screens';
 
 export type AuthStackParams = {
   Welcome: undefined;
-  Entrar: undefined;
-  'Criar conta': undefined;
 };
 
 export const Stack = createNativeStackNavigator<AuthStackParams>();
