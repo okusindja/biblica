@@ -60,6 +60,7 @@ export const styles = StyleSheet.create({
     borderWidth: scale(3),
     height: scale(120),
     width: scale(120),
+    marginBottom: scale(10),
   },
   personalPhoto: {
     borderRadius: scale(50),

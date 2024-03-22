@@ -14,8 +14,8 @@ const ProfileHeader: FC = () => {
       {navigation.canGoBack() && (
         <Pressable onPress={() => navigationToGoBack.goBack()}>
           <CaretLeftSVG
-            maxWidth={scale(36)}
-            maxHeight={scale(36)}
+            maxWidth={scale(18)}
+            maxHeight={scale(18)}
             color="white"
             style={{
               shadowColor: '#000',

@@ -7,12 +7,12 @@ const CaretLeft: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   <Svg
     width={maxWidth}
     height={maxHeight}
-    viewBox="0 0 44 44"
+    viewBox="0 0 24 24"
     fill="none"
     {...props}
   >
     <Path
-      d="M28.2515 13.585L25.6665 11L14.6665 22L25.6665 33L28.2515 30.415L19.8548 22L28.2515 13.585Z"
+      d="M18.3 3.585L15.5789 1L4 12L15.5789 23L18.3 20.415L9.4614 12L18.3 3.585Z"
       fill="currentColor"
     />
   </Svg>

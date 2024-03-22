@@ -1,63 +1,58 @@
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
+import { scale } from 'react-native-size-matters';
 
-export const Container = styled.View`
-  flex: 1;
-  height: 130px;
-  padding: 30px 0;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-`;
-
-export const PostImage = styled.ImageBackground`
-  width: 90px;
-  height: 90px;
-  overflow: hidden;
-  margin-right: 20px
-  border-radius: 10px;
-`;
-
-export const Line = styled.View`
-  flex: 1;
-  height: 1px;
-  background-color: #e0e0e0;
-  `;
-
-export const PostText = styled.View`
-  flex: 1;
-  height: 90px;
-  justify-content: space-between;
-`;
-
-export const TitleWrapper = styled.View`
-  flex: 1;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-export const Title = styled.Text`
-  color: gray;
-  max-width: 70%;
-  font-size: 14px;
-  font-weight: bold;
-`;
-
-export const PostFooter = styled.View`
-  flex: 1;
-  height: 100%;
-  flex-direction: row;
-  gap: 20px;
-`;
-
-export const PostFooterContent = styled.View`
-    flex-direction: row;
-    align-items: center;
-`;
-
-export const PostFooterText = styled.Text`
-  color: #afafaf;
-  font-size: 12px;
-  margin-left: 5px;
-`;
-
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: scale(105),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  postImage: {
+    width: scale(75),
+    height: scale(75),
+    overflow: 'hidden',
+    marginRight: scale(15),
+    borderRadius: 10,
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#e0e0e0',
+  },
+  postText: {
+    flex: 1,
+    height: scale(75),
+    justifyContent: 'space-between',
+  },
+  titleWrapper: {
+    flex: 1,
+    maxWidth: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  title: {
+    color: 'gray',
+    maxWidth: '70%',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  postFooter: {
+    flex: 1,
+    height: '100%',
+    flexDirection: 'row',
+    gap: 20,
+  },
+  postFooterContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: scale(4),
+  },
+  postFooterText: {
+    color: '#afafaf',
+    fontSize: 12,
+    marginLeft: 5,
+  },
+});

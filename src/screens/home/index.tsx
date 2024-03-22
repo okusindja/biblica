@@ -8,7 +8,7 @@ import { GET_ALL_POSTS } from '../../graphql';
 import { useRefresh } from '../../hooks';
 import { CardContainer, Container, Title } from './styles';
 import { SearchSVG } from '../../components/svg';
-import { Input } from '../../elements';
+import { Input, Typography } from '../../elements';
 
 const Posts = () => {
   const { data, refetch, loading } = useQuery(GET_ALL_POSTS, {
@@ -36,7 +36,7 @@ const Posts = () => {
       <CardContainer>
         <Card item={data?.posts[0]} />
       </CardContainer>
-      <Title>Últimas postagens</Title>
+      <Typography variant="title" children="Últimas postagens" bold />
       <FlatList
         scrollEnabled={false}
         data={data?.posts.slice(1, total)}

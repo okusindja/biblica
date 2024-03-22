@@ -1,6 +1,9 @@
 import React from 'react';
 import { AntDesign, Ionicons  } from "@expo/vector-icons";
-import { Container, Line, PostImage, PostText, PostFooter, Title, PostFooterText, PostFooterContent, TitleWrapper } from './styles'
+import { styles } from './styles';
+import { Typography } from '../../elements';
+import { scale } from 'react-native-size-matters';
+import { Image, View } from 'react-native';
 
 interface Props {
   title: string;
@@ -13,33 +16,44 @@ interface Props {
   category?: string;
 }
 
-const PostArticle = ({title, image, author, category}: Props) => {
+const PostArticle = ({ title, image, author, category }: Props) => {
   return (
     <>
-      <Container>
-        <PostImage source={{ uri: `${image}` }} />
-        <PostText>
-          <TitleWrapper>
-            <Title numberOfLines={2}>{title}</Title>
-            <Ionicons name="ellipsis-horizontal" size={24} color="#afafaf" />
-          </TitleWrapper>
-          <PostFooter>
-            <PostFooterContent>
+      <View style={styles.container}>
+        <Image style={styles.postImage} source={{ uri: `${image}` }} />
+        <View style={styles.postText}>
+          <View style={styles.titleWrapper}>
+            <Typography
+              numberOfLines={2}
+              maxWidth="80%"
+              variant="paragraph"
+              bold
+            >
+              {title}
+            </Typography>
+            <Ionicons
+              name="ellipsis-horizontal"
+              size={scale(20)}
+              color="#afafaf"
+            />
+          </View>
+          <View style={styles.postFooter}>
+            <View style={styles.postFooterContent}>
               <Ionicons
                 name="ios-person-circle-outline"
-                size={20}
-                color={"#9c9c9c"}
+                size={scale(16)}
+                color={'#9c9c9c'}
               />
-              <PostFooterText>{author}</PostFooterText>
-            </PostFooterContent>
-            <PostFooterContent>
-              <AntDesign name="calendar" size={15} color={"#9c9c9c"} />
-              <PostFooterText>{category}</PostFooterText>
-            </PostFooterContent>
-          </PostFooter>
-        </PostText>
-      </Container>
-      <Line />
+              <Typography variant="legend">{author}</Typography>
+            </View>
+            <View style={styles.postFooterContent}>
+              <AntDesign name="calendar" size={scale(12)} color={'#9c9c9c'} />
+              <Typography variant="legend">{category}</Typography>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View style={styles.line} />
     </>
   );
 };

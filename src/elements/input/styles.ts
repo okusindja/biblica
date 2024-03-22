@@ -46,6 +46,7 @@ export const styles = StyleSheet.create({
   onRedBackGround: {
     backgroundColor: '#B13939',
     color: '#fff',
+    borderWidth: 0,
   },
   onWhiteBackGround: {
     backgroundColor: '#fff',

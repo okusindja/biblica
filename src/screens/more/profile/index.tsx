@@ -16,11 +16,11 @@ import { styles } from './styles';
 import { PostArticle } from '../../../components';
 import CaretLeft from '../../../components/svg/caret-left';
 import ProfileHeader from './profile-header';
+import { Typography } from '../../../elements';
 
 const Profile = () => {
   return (
     <ScrollView style={styles.container}>
-      <Text>Oi</Text>
       <ProfileBgSVG
         style={{
           top: scale(-35),
@@ -41,7 +41,9 @@ const Profile = () => {
           }}
           style={styles.photo}
         />
-        <Text style={styles.name}>Juan Brasilian</Text>
+        <Typography variant="title" size="l">
+          Juan Brasilian
+        </Typography>
         <View style={styles.curiosities}>
           <View style={styles.curiosityEdge}>
             <ChurchSVG
@@ -49,7 +51,9 @@ const Profile = () => {
               maxHeight={scale(12)}
               color="#999999"
             />
-            <Text style={styles.curiosityText}>Metodista</Text>
+            <Typography variant="legend" bold>
+              Metodista
+            </Typography>
           </View>
           <View style={styles.curiosityMiddle}>
             <CrossSVG
@@ -57,7 +61,9 @@ const Profile = () => {
               maxHeight={scale(12)}
               color="#999999"
             />
-            <Text style={styles.curiosityText}>Crente a 7 anos</Text>
+            <Typography variant="legend" bold>
+              Crente a 7 anos
+            </Typography>
           </View>
           <View style={styles.curiosityEdge}>
             <HeartSVG
@@ -65,12 +71,14 @@ const Profile = () => {
               maxHeight={scale(12)}
               color="#999999"
             />
-            <Text style={styles.curiosityText}>Jesus é TUDO</Text>
+            <Typography variant="legend" bold>
+              Jesus é TUDO
+            </Typography>
           </View>
         </View>
       </LinearGradient>
       <Layout>
-        <Text style={styles.sectionTitle}>Histórico de notas:</Text>
+        <Typography variant="title">Histórico de notas:</Typography>
         <LinearGradient
           colors={['#F5F5F5', 'white']}
           locations={[0, 1]}
@@ -87,7 +95,7 @@ const Profile = () => {
           <Text>Nota 9</Text>
           <Text>Nota 10</Text>
         </LinearGradient>
-        <Text style={styles.sectionTitle}>Items salvos:</Text>
+        <Typography variant="title">Items salvos:</Typography>
         <LinearGradient
           colors={['#F5F5F5', 'white']}
           locations={[0, 1]}
@@ -112,7 +120,7 @@ const Profile = () => {
             image="https://bookingagentinfo.com/wp-content/uploads/2022/12/Stromae-1.jpg"
           />
         </LinearGradient>
-        <Text style={styles.sectionTitle}>Meus professores:</Text>
+        <Typography variant="title">Minhas ligações:</Typography>
         <LinearGradient
           colors={['#F5F5F5', 'white']}
           locations={[0, 1]}

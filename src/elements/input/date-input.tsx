@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { styles } from './styles';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { DateInputProps } from './input.types';
+import Typography from '../typography';
 
 const DateInput: FC<DateInputProps> = ({
   onChange,
@@ -30,7 +31,7 @@ const DateInput: FC<DateInputProps> = ({
           },
         ]}
       >
-        <Text>{title}</Text>
+        <Typography variant="paragraph">{title}</Typography>
         <RNDateTimePicker
           style={{ alignSelf: 'flex-start' }}
           display="calendar"

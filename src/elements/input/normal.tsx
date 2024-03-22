@@ -5,6 +5,7 @@ import { scale } from 'react-native-size-matters';
 import { ErrorSVG } from '../../components/svg';
 import { InputProps } from './input.types';
 import { styles } from './styles';
+import Typography from '../typography';
 
 const Input: FC<TextInputProps & InputProps> = ({
   variant,
@@ -17,14 +18,15 @@ const Input: FC<TextInputProps & InputProps> = ({
   return (
     <>
       {inputErrorMessage && (
-        <Text
+        <Typography
+          variant="legend"
           style={[
             styles.inputMessage,
             { color: variant === 'red' ? '#fff' : '#E21F2C' },
           ]}
         >
           {inputErrorMessage}
-        </Text>
+        </Typography>
       )}
       <View
         style={[
