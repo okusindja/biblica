@@ -14,6 +14,11 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'Poppins_500Medium',
   },
+  titleWrapper: {
+    width: width - scale(20),
+    alignItems: 'center',
+    marginBottom: scale(20),
+  },
   container: {
     alignItems: 'center',
     alignSelf: 'center',

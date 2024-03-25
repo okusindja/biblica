@@ -17,16 +17,7 @@ import { TextProps } from 'react-native';
 
 const Typography: FC<
   PropsWithChildren<TypographyProps & TextProps & CommonTypographyProps>
-> = ({
-  variant,
-  children,
-  bold,
-  size,
-  themeColor,
-  align,
-  maxWidth,
-  ...props
-}) => {
+> = ({ variant, children, bold, size, themeColor, align, width, ...props }) => {
   const [fontsLoaded] = useFonts({
     Poppins_600SemiBold,
     Poppins_500Medium,
@@ -47,7 +38,7 @@ const Typography: FC<
           bold={bold}
           size={size}
           align={align}
-          maxWidth={maxWidth}
+          width={width}
           children={children}
           themeColor={themeColor}
         />
@@ -57,7 +48,7 @@ const Typography: FC<
           bold={bold}
           size={size}
           align={align}
-          maxWidth={maxWidth}
+          width={width}
           children={children}
           themeColor={themeColor}
         />
@@ -67,7 +58,7 @@ const Typography: FC<
           bold={bold}
           size={size}
           align={align}
-          maxWidth={maxWidth}
+          width={width}
           children={children}
           themeColor={themeColor}
         />
@@ -77,7 +68,7 @@ const Typography: FC<
           bold={bold}
           size={size}
           align={align}
-          maxWidth={maxWidth}
+          width={width}
           children={children}
           themeColor={themeColor}
         />

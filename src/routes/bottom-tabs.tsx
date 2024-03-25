@@ -12,6 +12,7 @@ import { PostsScreen, PreachPlaceScreen } from '../screens';
 import UserInfo from '../screens/user-info';
 import ContentStack from './content';
 import MoreStack from './more';
+import LibraryStack from './library';
 
 const Tab = createBottomTabNavigator();
 
@@ -79,7 +80,7 @@ export const Routes: FC = () => {
     >
       <Tab.Screen name="Início" component={PostsScreen} />
       <Tab.Screen name="Conteúdo" component={ContentStack} />
-      <Tab.Screen name="Livraria" component={UserInfo} />
+      <Tab.Screen name="Livraria" component={LibraryStack} />
       <Tab.Screen name="Púlpito" component={PreachPlaceScreen} />
       <Tab.Screen
         options={{ headerShown: false }}

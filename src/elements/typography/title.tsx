@@ -10,7 +10,7 @@ const Title: FC<PropsWithChildren<TextProps & TitleProps>> = ({
   themeColor,
   size,
   align,
-  maxWidth,
+  width,
   ...props
 }) => {
   return (
@@ -28,7 +28,7 @@ const Title: FC<PropsWithChildren<TextProps & TitleProps>> = ({
                 : '#7A7A7A',
           fontFamily: bold ? 'Poppins_600SemiBold' : 'Poppins_400Regular',
           textAlign: align,
-          maxWidth: maxWidth,
+          width: width,
         },
       ]}
       {...props}

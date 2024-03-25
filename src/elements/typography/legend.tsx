@@ -10,7 +10,7 @@ const Legend: FC<PropsWithChildren<TextProps & LegendProps>> = ({
   size,
   children,
   align,
-  maxWidth,
+  width,
   ...props
 }) => {
   return (
@@ -27,7 +27,7 @@ const Legend: FC<PropsWithChildren<TextProps & LegendProps>> = ({
                 : '#a3a3a3',
           fontFamily: bold ? 'Poppins_500Medium' : 'Poppins_400Regular',
           textAlign: align,
-          maxWidth: maxWidth,
+          width: width,
         },
       ]}
       {...props}

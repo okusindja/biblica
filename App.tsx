@@ -20,6 +20,7 @@ import { SafeAreaView, Text } from 'react-native';
 import { FIREBASE_AUTH } from './src/FirebaseConfig';
 import { AuthStack } from './src/routes';
 import { Routes } from './src/routes/bottom-tabs';
+import useAuth from './src/hooks/use-auth';
 
 const client = new ApolloClient({
   uri: 'https://api-sa-east-1.hygraph.com/v2/clf1g63xp2sx801ug9ymbepeg/master',
@@ -31,9 +32,7 @@ const client = new ApolloClient({
 });
 
 export default function App() {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
-  const auth = FIREBASE_AUTH;
+  const { user, initializing } = useAuth();
   const [fontsLoaded] = useFonts({
     UnifrakturCook_700Bold,
     Poppins_400Regular,
@@ -42,18 +41,9 @@ export default function App() {
     Poppins_600SemiBold,
   });
 
-  // Handle user state changes
-  function onStateChanged(user: User | null) {
-    setUser(user);
-    if (initializing) setInitializing(false);
+  if (initializing) {
+    return <Text>Loading...</Text>;
   }
-
-  useEffect(() => {
-    const subscriber = onAuthStateChanged(auth, onStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);
-
-  if (initializing) return null;
 
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;

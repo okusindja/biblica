@@ -9,6 +9,7 @@ type StackNavigatorProps = {
   Home: undefined;
   Turmas: undefined;
   Ensinos: undefined;
+  Livraria: undefined;
   Evangelho: undefined;
   MoreStack: undefined;
   Perfil: undefined;

@@ -7,22 +7,12 @@ import OptionItem from '../../components/option-item';
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { MoreScreenData } from './more.data';
 import { styles } from './styles';
+import useAuth from '../../hooks/use-auth';
 
 const More = () => {
+  const { logout } = useAuth();
   const navigation = useNavigation();
-  const auth = FIREBASE_AUTH;
   const [loading, setLoading] = useState(false);
-
-  const handleSignOut = async () => {
-    setLoading(true);
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) return <Text>A carregar...</Text>;
 
@@ -32,9 +22,7 @@ const More = () => {
         <OptionItem
           key={index}
           onPress={() =>
-            item === 'Terminar sessão'
-              ? handleSignOut()
-              : navigation.navigate(item)
+            item === 'Terminar sessão' ? logout() : navigation.navigate(item)
           }
           title={item}
         />

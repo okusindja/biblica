@@ -28,22 +28,27 @@ import { FIREBASE_AUTH } from '../../../FirebaseConfig';
 import { AuthPagesProps } from '../auth.types';
 import { styles as authStyles } from '../styles';
 import { styles } from './styles';
-import { Input } from '../../../elements';
+import { Input, Typography } from '../../../elements';
+import useAuth from '../../../hooks/use-auth';
 
 const SignUp: FC<Omit<AuthPagesProps, 'onPressSignUp'>> = ({
   onPressLogin,
 }) => {
+  const {
+    createUser,
+    weakPasswordError,
+    emailInUseError,
+    missingPasswordError,
+    loading,
+    resetErrors,
+    invalidEmailError,
+  } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
-  const [missingPasswordError, setMissingPasswordError] = useState(false);
-  const [weakPasswordError, setWeakPasswordError] = useState(false);
-  const [invalidEmailError, setInvalidEmailError] = useState(false);
-  const [emailInUseError, setEmailInUseError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loadingSignUp, setLoading] = useState(false);
   const [visiblePassword, setVisiblePassword] = useState(false);
-  const auth = FIREBASE_AUTH;
 
   const [fontsLoaded] = useFonts({
     Poppins_600SemiBold,
@@ -55,61 +60,23 @@ const SignUp: FC<Omit<AuthPagesProps, 'onPressSignUp'>> = ({
     return <Text>Carregando...</Text>;
   }
 
-  const handleErrors = (error: FirebaseError) => {
-    switch (error.code) {
-      case 'auth/missing-password':
-        setMissingPasswordError(true);
-        setWeakPasswordError(false);
-        setInvalidEmailError(false);
-        setEmailInUseError(false);
-        setConfirmPasswordError(false);
-        break;
-      case 'auth/weak-password':
-        setWeakPasswordError(true);
-        setMissingPasswordError(false);
-        setInvalidEmailError(false);
-        setEmailInUseError(false);
-        setConfirmPasswordError(false);
-        break;
-      case 'auth/invalid-email':
-        setInvalidEmailError(true);
-        setWeakPasswordError(false);
-        setEmailInUseError(false);
-        setMissingPasswordError(false);
-        setConfirmPasswordError(false);
-        break;
-      case 'auth/email-already-in-use':
-        setEmailInUseError(true);
-        setInvalidEmailError(false);
-        setWeakPasswordError(false);
-        setMissingPasswordError(false);
-        setConfirmPasswordError(false);
-        break;
-      default:
-        console.error(error);
-    }
-  };
-
   const handleCreateUser = async () => {
-    setLoading(true);
-    try {
-      if (password === confirmPassword) {
-        await createUserWithEmailAndPassword(auth, email, password);
-      } else {
-        setConfirmPasswordError(true);
-      }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      handleErrors(error);
-      console.error(error);
-    } finally {
-      setLoading(false);
+    setLoading(loading);
+    if (password === confirmPassword) {
+      createUser(email, password);
+    } else {
+      setConfirmPasswordError(true);
     }
+    setLoading(loading);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, { color: 'white' }]}>Criar Conta</Text>
+      <View style={styles.titleWrapper}>
+        <Typography variant="heading" themeColor="white" size="l">
+          Criar Conta
+        </Typography>
+      </View>
       <KeyboardAvoidingView
         style={{ alignItems: 'center', gap: scale(5) }}
         behavior="padding"
@@ -128,8 +95,7 @@ const SignUp: FC<Omit<AuthPagesProps, 'onPressSignUp'>> = ({
           autoCapitalize="none"
           Prefix={UserSecuredSVG}
           onFocus={() => {
-            setInvalidEmailError(false);
-            setEmailInUseError(false);
+            resetErrors();
           }}
           onChangeText={(text) => setEmail(text)}
         />
@@ -142,9 +108,7 @@ const SignUp: FC<Omit<AuthPagesProps, 'onPressSignUp'>> = ({
           secureTextEntry={!visiblePassword}
           onChangeText={(text) => setPassword(text)}
           onFocus={() => {
-            setConfirmPasswordError(false);
-            setWeakPasswordError(false);
-            setMissingPasswordError(false);
+            resetErrors();
           }}
           inputErrorMessage={
             missingPasswordError
@@ -176,7 +140,7 @@ const SignUp: FC<Omit<AuthPagesProps, 'onPressSignUp'>> = ({
           onPress={handleCreateUser}
           style={[styles.button, { backgroundColor: 'black' }]}
         >
-          {loading ? (
+          {loadingSignUp ? (
             <ActivityIndicator />
           ) : (
             <Text style={styles.buttonText}>Criar conta</Text>

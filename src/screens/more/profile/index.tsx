@@ -17,8 +17,24 @@ import { PostArticle } from '../../../components';
 import CaretLeft from '../../../components/svg/caret-left';
 import ProfileHeader from './profile-header';
 import { Typography } from '../../../elements';
+import { useQuery } from '@apollo/client';
+import { GET_STUDENT_BY_AUTH_ID } from '../../../graphql';
+import { FIREBASE_AUTH } from '../../../FirebaseConfig';
 
 const Profile = () => {
+  const auth = FIREBASE_AUTH.currentUser?.uid;
+  const { data, loading, error } = useQuery(GET_STUDENT_BY_AUTH_ID, {
+    notifyOnNetworkStatusChange: true,
+    variables: {
+      authId: auth,
+    },
+  });
+
+  const student = data.student;
+
+  if (loading) return <Text>Loading...</Text>;
+  if (error) console.log(error);
+
   return (
     <ScrollView style={styles.container}>
       <ProfileBgSVG
@@ -42,7 +58,7 @@ const Profile = () => {
           style={styles.photo}
         />
         <Typography variant="title" size="l">
-          Juan Brasilian
+          {student?.name ? student?.name : 'Sem nome'}
         </Typography>
         <View style={styles.curiosities}>
           <View style={styles.curiosityEdge}>
@@ -52,7 +68,9 @@ const Profile = () => {
               color="#999999"
             />
             <Typography variant="legend" bold>
-              Metodista
+              {student?.denomination
+                ? student?.denomination
+                : 'Sem denominação'}
             </Typography>
           </View>
           <View style={styles.curiosityMiddle}>
@@ -62,7 +80,9 @@ const Profile = () => {
               color="#999999"
             />
             <Typography variant="legend" bold>
-              Crente a 7 anos
+              Crente a{' '}
+              {student?.yearsBeingChristian ? student?.yearsBeingChristian : 0}{' '}
+              anos
             </Typography>
           </View>
           <View style={styles.curiosityEdge}>

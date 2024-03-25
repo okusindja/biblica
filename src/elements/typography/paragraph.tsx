@@ -11,7 +11,7 @@ const Paragraph: FC<PropsWithChildren<ParagraphProps & TextProps>> = ({
   themeColor,
   children,
   align,
-  maxWidth,
+  width,
   ...props
 }) => {
   return (
@@ -29,7 +29,7 @@ const Paragraph: FC<PropsWithChildren<ParagraphProps & TextProps>> = ({
                 : '#7A7A7A',
           fontFamily: bold ? 'Poppins_600SemiBold' : 'Poppins_400Regular',
           textAlign: align,
-          maxWidth: maxWidth,
+          width: width,
         },
       ]}
       {...props}

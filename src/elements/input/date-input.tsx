@@ -31,9 +31,11 @@ const DateInput: FC<DateInputProps> = ({
           },
         ]}
       >
-        <Typography variant="paragraph">{title}</Typography>
+        <Typography variant="paragraph" size="m" bold>
+          {title}
+        </Typography>
         <RNDateTimePicker
-          style={{ alignSelf: 'flex-start' }}
+          style={{ alignSelf: 'center', backgroundColor: 'white' }}
           display="calendar"
           value={value}
           onChange={onChange}

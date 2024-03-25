@@ -5,14 +5,21 @@ import { CaretLeftSVG, PencilSVG } from '../../../components/svg';
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../../routes/routes.types';
+import { ProfileHeaderProps } from './profile.types';
 
-const ProfileHeader: FC = () => {
+const ProfileHeader: FC<ProfileHeaderProps> = ({
+  hasBackButton = true,
+  hasEditButton = true,
+}) => {
   const navigationToGoBack = useNavigation();
   const navigation = useNavigation<StackTypes>();
   return (
     <View style={styles.headerButtons}>
-      {navigation.canGoBack() && (
-        <Pressable onPress={() => navigationToGoBack.goBack()}>
+      {navigation.canGoBack() && hasBackButton && (
+        <Pressable
+          style={{ marginRight: 'auto' }}
+          onPress={() => navigationToGoBack.goBack()}
+        >
           <CaretLeftSVG
             maxWidth={scale(18)}
             maxHeight={scale(18)}
@@ -30,23 +37,28 @@ const ProfileHeader: FC = () => {
           />
         </Pressable>
       )}
-      <Pressable onPress={() => navigation.navigate('Informações')}>
-        <PencilSVG
-          maxWidth={scale(18)}
-          maxHeight={scale(18)}
-          color="white"
-          style={{
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
-          }}
-        />
-      </Pressable>
+      {hasEditButton && (
+        <Pressable
+          style={{ marginLeft: 'auto' }}
+          onPress={() => navigation.navigate('Informações')}
+        >
+          <PencilSVG
+            maxWidth={scale(18)}
+            maxHeight={scale(18)}
+            color="white"
+            style={{
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5,
+            }}
+          />
+        </Pressable>
+      )}
     </View>
   );
 };

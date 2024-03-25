@@ -21,24 +21,21 @@ import { FIREBASE_AUTH } from '../../../FirebaseConfig';
 import { AuthPagesProps } from '../auth.types';
 import { styles as authStyles } from '../styles';
 import { styles } from './styles';
-import { Input } from '../../../elements';
+import { Input, Typography } from '../../../elements';
+import useAuth from '../../../hooks/use-auth';
+import { FirebaseError } from 'firebase/app';
 
 const Login: FC<Omit<AuthPagesProps, 'onPressLogin'>> = ({ onPressSignUp }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loadingLogin, setLoading] = useState(false);
   const [visiblePassword, setVisiblePassword] = useState(false);
-  const auth = FIREBASE_AUTH;
+  const { login, loading, invalidEmailError, wrongPasswordError } = useAuth();
 
   const handleLogin = async () => {
-    setLoading(true);
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(loading);
+    await login(email, password);
+    setLoading(loading);
   };
 
   const user = FIREBASE_AUTH.currentUser;
@@ -47,7 +44,11 @@ const Login: FC<Omit<AuthPagesProps, 'onPressLogin'>> = ({ onPressSignUp }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, { color: '#4A4A4A' }]}>Entrar</Text>
+      <View style={styles.titleWrapper}>
+        <Typography variant="heading" size="l">
+          Entrar
+        </Typography>
+      </View>
       <KeyboardAvoidingView
         style={{ alignItems: 'center', gap: scale(5) }}
         behavior="padding"
@@ -59,6 +60,7 @@ const Login: FC<Omit<AuthPagesProps, 'onPressLogin'>> = ({ onPressSignUp }) => {
           autoCapitalize="none"
           Prefix={UserSecuredSVG}
           onChangeText={(text) => setEmail(text)}
+          inputErrorMessage={invalidEmailError ? 'Email inválido' : ''}
         />
         <Input
           variant="white"
@@ -66,6 +68,7 @@ const Login: FC<Omit<AuthPagesProps, 'onPressLogin'>> = ({ onPressSignUp }) => {
           placeholder="Senha"
           Prefix={PasswordSVG}
           autoCapitalize="none"
+          inputErrorMessage={wrongPasswordError ? 'Senha incorreta' : ''}
           secureTextEntry={!visiblePassword}
           onChangeText={(text) => setPassword(text)}
           Suffix={visiblePassword ? EyeSVG : ClosedEyeSVG}
@@ -73,7 +76,7 @@ const Login: FC<Omit<AuthPagesProps, 'onPressLogin'>> = ({ onPressSignUp }) => {
         />
         <Text style={styles.textButton}>Esqueci-me da minha senha</Text>
 
-        {loading ? (
+        {loadingLogin ? (
           <ActivityIndicator />
         ) : (
           <Pressable

@@ -10,7 +10,7 @@ const Heading: FC<PropsWithChildren<TextProps & HeadingProps>> = ({
   bold,
   children,
   align,
-  maxWidth,
+  width,
   ...props
 }) => {
   return (
@@ -19,16 +19,16 @@ const Heading: FC<PropsWithChildren<TextProps & HeadingProps>> = ({
         styles.common,
         {
           fontSize:
-            size === 's' ? scale(14) : size === 'l' ? scale(18) : scale(16),
+            size === 's' ? scale(14) : size === 'l' ? scale(21) : scale(16),
           color:
             themeColor === 'red'
               ? '#E21F2C'
               : themeColor === 'white'
                 ? '#fff'
                 : '#7A7A7A',
-          fontFamily: bold ? 'Poppins_700Bold' : 'Poppins_400Regular',
+          fontFamily: bold ? 'Poppins_600SemiBold' : 'Poppins_400Regular',
           textAlign: align,
-          maxWidth: maxWidth,
+          width: width,
         },
       ]}
       {...props}

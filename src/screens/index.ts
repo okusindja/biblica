@@ -7,3 +7,4 @@ export { default as ProfileScreen } from './more/profile';
 export { default as SettingsScreen } from './more/settings';
 export { default as PreachPlaceScreen } from './preachPlace';
 export { default as UserInfoScreen } from './user-info';
+export { default as LibraryScreen } from './library';

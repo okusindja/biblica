@@ -9,7 +9,7 @@ export interface CommonTypographyProps {
   bold?: boolean;
   size?: Sizes;
   align?: Align;
-  maxWidth?: DimensionValue;
+  width?: DimensionValue;
 }
 
 export interface TypographyProps {
