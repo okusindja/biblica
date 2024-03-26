@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'Poppins_500Medium',
     fontSize: scale(11),
     paddingLeft: scale(10),
+    marginBottom: scale(5),
     textAlign: 'left',
     width: width,
   },

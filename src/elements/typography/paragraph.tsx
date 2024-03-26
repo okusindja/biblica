@@ -27,7 +27,7 @@ const Paragraph: FC<PropsWithChildren<ParagraphProps & TextProps>> = ({
               : themeColor === 'white'
                 ? '#fff'
                 : '#7A7A7A',
-          fontFamily: bold ? 'Poppins_600SemiBold' : 'Poppins_400Regular',
+          fontFamily: bold ? 'Poppins_600SemiBold' : 'Poppins_500Medium',
           textAlign: align,
           width: width,
         },

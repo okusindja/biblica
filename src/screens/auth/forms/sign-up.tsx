@@ -1,35 +1,30 @@
+import { Button, Input, Typography } from '@elements';
 import {
   Poppins_500Medium,
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
+import {
+  ClosedEyeSVG,
+  EyeSVG,
+  LogoSVG,
+  PasswordSVG,
+  RightArrowSVG,
+  UserSecuredSVG,
+} from '@svg';
 import { useFonts } from 'expo-font';
-import { FirebaseError } from 'firebase/app';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { FC, useState } from 'react';
 import {
   ActivityIndicator,
   KeyboardAvoidingView,
-  Pressable,
   Text,
   View,
 } from 'react-native';
-import { scale } from 'react-native-size-matters';
+import { scale, verticalScale } from 'react-native-size-matters';
 
-import {
-  ClosedEyeSVG,
-  EyeSVG,
-  PasswordSVG,
-  RightArrowSVG,
-  UserSecuredSVG,
-} from '../../../components/svg';
-
-import { FIREBASE_AUTH } from '../../../FirebaseConfig';
-import { AuthPagesProps } from '../auth.types';
-import { styles as authStyles } from '../styles';
-import { styles } from './styles';
-import { Input, Typography } from '../../../elements';
 import useAuth from '../../../hooks/use-auth';
+import { AuthPagesProps } from '../auth.types';
+import { styles } from './styles';
 
 const SignUp: FC<Omit<AuthPagesProps, 'onPressSignUp'>> = ({
   onPressLogin,
@@ -71,91 +66,92 @@ const SignUp: FC<Omit<AuthPagesProps, 'onPressSignUp'>> = ({
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <View style={styles.logo}>
+        <LogoSVG
+          maxWidth={scale(60)}
+          maxHeight={verticalScale(108)}
+          secondary
+        />
+      </View>
       <View style={styles.titleWrapper}>
         <Typography variant="heading" themeColor="white" size="l">
           Criar Conta
         </Typography>
       </View>
-      <KeyboardAvoidingView
-        style={{ alignItems: 'center', gap: scale(5) }}
-        behavior="padding"
-      >
-        <Input
-          value={email}
-          variant="red"
-          inputErrorMessage={
-            invalidEmailError
-              ? 'Escreva um email válido'
-              : emailInUseError
-                ? 'Este email já encontra-se em uso'
-                : ''
-          }
-          placeholder="Email"
-          autoCapitalize="none"
-          Prefix={UserSecuredSVG}
-          onFocus={() => {
-            resetErrors();
-          }}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <Input
-          variant="red"
-          value={password}
-          placeholder="Senha"
-          Prefix={PasswordSVG}
-          autoCapitalize="none"
-          secureTextEntry={!visiblePassword}
-          onChangeText={(text) => setPassword(text)}
-          onFocus={() => {
-            resetErrors();
-          }}
-          inputErrorMessage={
-            missingPasswordError
-              ? 'A sua senha é obrigatória'
-              : weakPasswordError
-                ? 'A sua senha deve ter no mínimo 6 caracteres'
-                : ''
-          }
-        />
-        <Input
-          variant="red"
-          inputErrorMessage={
-            confirmPasswordError
-              ? 'A sua senha deve ser devidamente confirmada'
+      <Input
+        value={email}
+        inputMode="email"
+        variant="red"
+        title="Email electrónico"
+        inputErrorMessage={
+          invalidEmailError
+            ? 'Escreva um email válido'
+            : emailInUseError
+              ? 'Este email já encontra-se em uso'
               : ''
-          }
-          Prefix={PasswordSVG}
-          autoCapitalize="none"
-          value={confirmPassword}
-          placeholder="Confirmar senha"
-          secureTextEntry={!visiblePassword}
-          onFocus={() => setConfirmPasswordError(false)}
-          Suffix={visiblePassword ? EyeSVG : ClosedEyeSVG}
-          onChangeText={(text) => setConfirmPassword(text)}
-          onPressSuffix={() => setVisiblePassword(!visiblePassword)}
-        />
+        }
+        placeholder="Email"
+        autoCapitalize="none"
+        Prefix={UserSecuredSVG}
+        onFocus={() => {
+          resetErrors();
+        }}
+        onChangeText={(text) => setEmail(text)}
+      />
+      <Input
+        variant="red"
+        value={password}
+        inputMode="text"
+        title="Senha"
+        placeholder="Senha"
+        Prefix={PasswordSVG}
+        autoCapitalize="none"
+        secureTextEntry={true}
+        onChangeText={(text) => setPassword(text)}
+        onFocus={() => {
+          resetErrors();
+        }}
+        inputErrorMessage={
+          missingPasswordError
+            ? 'A sua senha é obrigatória'
+            : weakPasswordError
+              ? 'A sua senha deve ter no mínimo 6 caracteres'
+              : ''
+        }
+      />
+      <Input
+        variant="red"
+        title="Confirmar senha"
+        inputErrorMessage={
+          confirmPasswordError
+            ? 'A sua senha deve ser devidamente confirmada'
+            : ''
+        }
+        Prefix={PasswordSVG}
+        autoCapitalize="none"
+        value={confirmPassword}
+        placeholder="Confirmar senha"
+        secureTextEntry={!visiblePassword}
+        onFocus={() => setConfirmPasswordError(false)}
+        Suffix={visiblePassword ? EyeSVG : ClosedEyeSVG}
+        onChangeText={(text) => setConfirmPassword(text)}
+        onPressSuffix={() => setVisiblePassword(!visiblePassword)}
+      />
+      <Button
+        title={loadingSignUp ? <ActivityIndicator /> : 'Criar Conta'}
+        onPress={handleCreateUser}
+        variant="primary"
+      />
 
-        <Pressable
-          onPress={handleCreateUser}
-          style={[styles.button, { backgroundColor: 'black' }]}
-        >
-          {loadingSignUp ? (
-            <ActivityIndicator />
-          ) : (
-            <Text style={styles.buttonText}>Criar conta</Text>
-          )}
-        </Pressable>
-        <Pressable style={authStyles.buttomTextWrapper} onPress={onPressLogin}>
-          <Text style={styles.buttonText}>Já tenho uma conta. Fazer Login</Text>
-          <RightArrowSVG
-            maxWidth={scale(24)}
-            maxHeight={scale(24)}
-            color="white"
-          />
-        </Pressable>
-      </KeyboardAvoidingView>
-    </View>
+      <Button
+        title="Já tenho uma conta. Fazer Login"
+        themeColor="white"
+        onPress={onPressLogin}
+        variant="text"
+        Suffix={RightArrowSVG}
+      />
+    </KeyboardAvoidingView>
   );
 };
 

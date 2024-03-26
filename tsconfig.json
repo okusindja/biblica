@@ -1,22 +1,38 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "jsx": "react",
     "strict": true,
-    "plugins": [
-      {
-        "name": "@styled/typescript-styled-plugin",
-        "tags": ["styled", "css", "sty"],
-        "lint": {
-          "vendorPrefix": "error",
-          "zeroUnits": "error",
-          "unknownProperties": "error",
-          "duplicateProperties": "warning",
-          "emptyRules": "warning",
-          "universalSelector": "warning",
-          "showSuggestionsAsSnippets": true,
-          "showExpandedAbbreviation": "always"
-        }
-      }
-    ]
-  }
+    "esModuleInterop": true,
+    "baseUrl": "src",
+    "paths": {
+      "@svg": ["./components/svg"],
+      "@design-system": ["./design-system"],
+      "@design-system/*": ["./design-system/*"],
+      "@elements": ["./elements"],
+      "@elements/*": ["./elements/*"],
+      "@components": ["./components"],
+      "@components/*": ["./components/*"],
+      "@screens": ["./screens"],
+      "@screens/*": ["./screens/*"],
+      "@utils": ["./utils"],
+      "@utils/*": ["./utils/*"],
+      "@assets": ["./assets"],
+      "@assets/*": ["./assets/*"],
+      "@graphql": ["./graphql"],
+      "@graphql/*": ["./graphql/*"],
+      "@routes": ["./routes"],
+      "@routes/*": ["./routes/*"],
+      "@types": ["./types"],
+      "@types/*": ["./types/*"],
+      "@hooks": ["./hooks"],
+      "@hooks/*": ["./hooks/*"],
+      "@contexts": ["./contexts"],
+      "@contexts/*": ["./contexts/*"],
+      "@constants": ["./constants"],
+      "@constants/*": ["./constants/*"]
+    }
+  },
+  "exclude": ["node_modules"],
+  "include": ["**/*.ts", "**/*.tsx"]
 }

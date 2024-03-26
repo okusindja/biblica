@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { FirebaseError } from '@firebase/app';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -6,9 +7,9 @@ import {
   signOut,
   User,
 } from 'firebase/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import { useEffect, useState } from 'react';
+
 import { FIREBASE_AUTH } from '../FirebaseConfig';
-import { FirebaseError } from 'firebase/app';
 
 const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -57,7 +58,7 @@ const useAuth = () => {
         password
       );
       setUser(userCredential.user);
-    } catch (error: any) {
+    } catch (error) {
       handleLoginErrors(error);
       console.error('Error signing in:', error);
     } finally {
@@ -74,7 +75,7 @@ const useAuth = () => {
         password
       );
       setUser(userCredential.user);
-    } catch (error: any) {
+    } catch (error) {
       handleCreateUserErrors(error);
       console.error('Error creating user:', error);
     } finally {
@@ -143,11 +144,13 @@ const useAuth = () => {
         setWeakPasswordError(false);
         setUserNotFoundError(true);
         setMissingPasswordError(false);
+        break;
       case 'auth/missing-password':
         setMissingPasswordError(true);
         setInvalidEmailError(false);
         setUserNotFoundError(false);
         setWrongPasswordError(false);
+        break;
       default:
         console.error(error);
     }

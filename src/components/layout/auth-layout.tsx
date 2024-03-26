@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import { Dimensions } from 'react-native';
 import { scale } from 'react-native-size-matters';
 
-import { LogoSVG } from '../../components/svg';
 import StyledBackground from '../../components/svg/styled-background';
 import { AuthLayoutProps } from './layout.types';
 import { styles } from './styles';
@@ -11,7 +10,6 @@ import { styles } from './styles';
 const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = ({
   variant,
   children,
-  hasLogo = true,
 }) => {
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
@@ -24,15 +22,6 @@ const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = ({
           maxHeight={scale(height * 1.5)}
         />
       </View>
-      {hasLogo && (
-        <View style={styles.logo}>
-          <LogoSVG
-            maxWidth={scale(60)}
-            maxHeight={scale(108)}
-            secondary={variant === 'red' ? true : false}
-          />
-        </View>
-      )}
       {children}
     </View>
   );

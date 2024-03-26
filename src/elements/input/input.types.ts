@@ -9,6 +9,7 @@ export interface InputProps {
   inputErrorMessage?: string;
   isError?: boolean;
   onPressSuffix?: () => void;
+  title?: string;
 }
 
 export interface DateInputProps {

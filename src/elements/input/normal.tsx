@@ -11,23 +11,30 @@ const Input: FC<TextInputProps & InputProps> = ({
   variant,
   Prefix,
   Suffix,
+  title,
   inputErrorMessage,
   onPressSuffix,
   ...props
 }) => {
   return (
     <>
-      {inputErrorMessage && (
-        <Typography
-          variant="legend"
-          style={[
-            styles.inputMessage,
-            { color: variant === 'red' ? '#fff' : '#E21F2C' },
-          ]}
-        >
-          {inputErrorMessage}
-        </Typography>
-      )}
+      <Typography
+        variant="legend"
+        style={[
+          styles.inputMessage,
+          {
+            color:
+              variant === 'red'
+                ? '#fff'
+                : variant === 'white' && !inputErrorMessage
+                  ? '#7A7A7A'
+                  : '#E21F2C',
+          },
+        ]}
+      >
+        {title}
+        {inputErrorMessage && ': ' + inputErrorMessage}
+      </Typography>
       <View
         style={[
           styles.input,

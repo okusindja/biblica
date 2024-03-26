@@ -1,29 +1,29 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { scale } from 'react-native-size-matters';
+import { scale, verticalScale } from 'react-native-size-matters';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 export const styles = StyleSheet.create({
   background: {
-    height: scale(height),
+    height: verticalScale(height),
     position: 'absolute',
-    top: scale(-height / 3),
+    top: verticalScale(-height / 3),
     width: scale(width),
   },
 
   container: {
     alignItems: 'center',
-    flex: 2,
+    flex: 1,
     justifyContent: 'center',
     position: 'relative',
   },
   layout: {
     backgroundColor: '#fff',
-    flex: 1,
     padding: scale(20),
+    width: '100%',
   },
   logo: {
-    top: scale(100),
+    marginTop: `${verticalScale(20)}%`,
   },
 });

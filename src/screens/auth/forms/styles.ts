@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { scale } from 'react-native-size-matters';
+import { scale, verticalScale } from 'react-native-size-matters';
 
 const width = Dimensions.get('window').width - scale(40);
 
@@ -14,17 +14,12 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'Poppins_500Medium',
   },
-  titleWrapper: {
-    width: width - scale(20),
-    alignItems: 'center',
-    marginBottom: scale(20),
-  },
   container: {
     alignItems: 'center',
     alignSelf: 'center',
     flex: 1,
     justifyContent: 'flex-end',
-    marginBottom: scale(15),
+    marginBottom: scale(40),
     padding: scale(20),
   },
   input: {
@@ -36,6 +31,9 @@ export const styles = StyleSheet.create({
     padding: scale(10),
     width: width,
   },
+  logo: {
+    marginBottom: `${verticalScale(20)}%`,
+  },
   textButton: {
     color: '#646464',
     fontFamily: 'Poppins_500Medium',
@@ -46,5 +44,11 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: scale(20),
     textAlign: 'center',
+  },
+  titleWrapper: {
+    alignItems: 'center',
+    gap: scale(10),
+    marginBottom: scale(20),
+    width: width - scale(20),
   },
 });
