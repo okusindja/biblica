@@ -25,13 +25,22 @@ const Login: FC<Omit<AuthPagesProps, 'onPressLogin'>> = ({ onPressSignUp }) => {
   const [password, setPassword] = useState('');
   const [loadingLogin, setLoading] = useState(false);
   const [visiblePassword, setVisiblePassword] = useState(false);
-  const { login, loading, invalidEmailError, wrongPasswordError } = useAuth();
+  const {
+    token,
+    login,
+    loading,
+    invalidEmailError,
+    wrongPasswordError,
+    resetErrors,
+  } = useAuth();
 
   const handleLogin = async () => {
     setLoading(loading);
     await login(email, password);
     setLoading(loading);
   };
+
+  console.log('Token Login', token);
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -48,6 +57,7 @@ const Login: FC<Omit<AuthPagesProps, 'onPressLogin'>> = ({ onPressSignUp }) => {
         variant="white"
         inputMode="email"
         autoCapitalize="none"
+        onFocus={resetErrors}
         Prefix={UserSecuredSVG}
         title="Email electrónico"
         placeholder="exemplo@gmail.com"
@@ -60,6 +70,7 @@ const Login: FC<Omit<AuthPagesProps, 'onPressLogin'>> = ({ onPressSignUp }) => {
         inputMode="text"
         value={password}
         placeholder="Senha"
+        onFocus={resetErrors}
         Prefix={PasswordSVG}
         autoCapitalize="none"
         secureTextEntry={!visiblePassword}
@@ -74,12 +85,14 @@ const Login: FC<Omit<AuthPagesProps, 'onPressLogin'>> = ({ onPressSignUp }) => {
         variant="secondary"
         onPress={handleLogin}
       />
-      <Button
-        title="Ainda não tenho uma conta. Criar conta"
-        onPress={onPressSignUp}
-        variant="text"
-        Suffix={RightArrowSVG}
-      />
+      <View style={{ marginBottom: scale(20) }}>
+        <Button
+          title="Ainda não tenho uma conta. Criar conta"
+          onPress={onPressSignUp}
+          variant="text"
+          Suffix={RightArrowSVG}
+        />
+      </View>
     </KeyboardAvoidingView>
   );
 };

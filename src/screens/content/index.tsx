@@ -1,6 +1,7 @@
+import { Button } from '@elements';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native';
 
 import banner1 from '../../../assets/banner1.jpg';
 import banner2 from '../../../assets/banner2.jpg';
@@ -10,13 +11,18 @@ import banner5 from '../../../assets/banner5.jpg';
 import turmas from '../../../assets/turmas.jpeg';
 import { Banner } from '../../components';
 import { StackTypes } from '../../routes/routes.types';
-import { Container } from './styles';
+import { styles } from './styles';
 
 const Home = () => {
   const navigation = useNavigation<StackTypes>();
 
   return (
-    <Container>
+    <ScrollView style={styles.container}>
+      <Button
+        variant="primary"
+        onPress={() => navigation.navigate('Gestor de conteúdo')}
+        title="Gestor de conteúdo"
+      />
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('Turmas');
@@ -59,7 +65,7 @@ const Home = () => {
       >
         <Banner size="L" title="Solicitar aconselhamento" img={banner5} />
       </TouchableOpacity>
-    </Container>
+    </ScrollView>
   );
 };
 

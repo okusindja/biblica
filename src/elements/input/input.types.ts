@@ -1,3 +1,4 @@
+import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { FC } from 'react';
 
 import { SVGProps } from '../../components/svg/svg.types';
@@ -14,8 +15,12 @@ export interface InputProps {
 
 export interface DateInputProps {
   value: Date;
-  onChange: () => void;
   title: string;
   isError?: boolean;
+  onChange: (
+    event: DateTimePickerEvent,
+    selectedDate: Date | undefined
+  ) => void;
+  variant?: 'red' | 'white';
   inputErrorMessage?: string;
 }

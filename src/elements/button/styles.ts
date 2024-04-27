@@ -5,10 +5,10 @@ const width = Dimensions.get('window').width - scale(40);
 
 export const styles = StyleSheet.create({
   buttomTextWrapper: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'row',
     gap: scale(10),
+    justifyContent: 'center',
     width: width,
   },
   buttomWrapper: {
@@ -18,13 +18,13 @@ export const styles = StyleSheet.create({
     width: width,
   },
   button: {
-    borderRadius: scale(50),
-    marginVertical: scale(10),
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: scale(15),
+    borderRadius: scale(50),
+    flexDirection: 'row',
     gap: scale(10),
+    justifyContent: 'center',
+    marginVertical: scale(10),
+    padding: scale(15),
     width: width,
   },
   buttonText: {

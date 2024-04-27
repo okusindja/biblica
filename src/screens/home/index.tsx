@@ -1,16 +1,17 @@
 import { useQuery } from '@apollo/client';
+import useAuth from '@hooks/use-auth';
 import React from 'react';
-import { FlatList, RefreshControl, Text } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 
 import { Card, PostArticle, Skeleton } from '../../components';
-
-import { GET_ALL_POSTS } from '../../graphql';
-import { useRefresh } from '../../hooks';
-import { CardContainer, Container, Title } from './styles';
 import { SearchSVG } from '../../components/svg';
 import { Input, Typography } from '../../elements';
+import { GET_ALL_POSTS } from '../../graphql';
+import { useRefresh } from '../../hooks';
+import { CardContainer, Container } from './styles';
 
 const Posts = () => {
+  const { token } = useAuth();
   const { data, refetch, loading } = useQuery(GET_ALL_POSTS, {
     notifyOnNetworkStatusChange: true,
   });
@@ -20,6 +21,8 @@ const Posts = () => {
   const total = data?.posts.length;
 
   if (loading) return <Skeleton form="banner-post" />;
+
+  console.log('Token home:', token);
 
   return (
     <Container

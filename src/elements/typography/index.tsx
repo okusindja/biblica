@@ -1,19 +1,20 @@
-import { View, Text } from 'react-native';
-import React, { FC, PropsWithChildren } from 'react';
-import { useFonts } from 'expo-font';
 import {
-  Poppins_600SemiBold,
-  Poppins_500Medium,
-  Poppins_700Bold,
   Poppins_200ExtraLight,
   Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
-import { CommonTypographyProps, TypographyProps } from './typography.types';
-import Legend from './legend';
-import Title from './title';
-import Paragraph from './paragraph';
-import Heading from './heading';
+import { useFonts } from 'expo-font';
+import React, { FC, PropsWithChildren } from 'react';
+import { Text } from 'react-native';
 import { TextProps } from 'react-native';
+
+import Heading from './heading';
+import Legend from './legend';
+import Paragraph from './paragraph';
+import Title from './title';
+import { CommonTypographyProps, TypographyProps } from './typography.types';
 
 const Typography: FC<
   PropsWithChildren<TypographyProps & TextProps & CommonTypographyProps>
@@ -39,9 +40,10 @@ const Typography: FC<
           size={size}
           align={align}
           width={width}
-          children={children}
           themeColor={themeColor}
-        />
+        >
+          {children}
+        </Legend>
       ) : variant === 'title' ? (
         <Title
           {...props}
@@ -49,9 +51,10 @@ const Typography: FC<
           size={size}
           align={align}
           width={width}
-          children={children}
           themeColor={themeColor}
-        />
+        >
+          {children}
+        </Title>
       ) : variant === 'paragraph' ? (
         <Paragraph
           {...props}
@@ -59,9 +62,10 @@ const Typography: FC<
           size={size}
           align={align}
           width={width}
-          children={children}
           themeColor={themeColor}
-        />
+        >
+          {children}
+        </Paragraph>
       ) : variant === 'heading' ? (
         <Heading
           {...props}
@@ -69,9 +73,10 @@ const Typography: FC<
           size={size}
           align={align}
           width={width}
-          children={children}
           themeColor={themeColor}
-        />
+        >
+          {children}
+        </Heading>
       ) : null}
     </>
   );

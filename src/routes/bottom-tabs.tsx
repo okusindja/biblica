@@ -1,18 +1,15 @@
-import { useQuery } from '@apollo/client';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import useAuth from '@hooks/use-auth';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { FC } from 'react';
-import { Pressable, SafeAreaView, Text, TouchableOpacity } from 'react-native';
+import { Pressable, TouchableOpacity } from 'react-native';
 import { scale } from 'react-native-size-matters';
 
 import { LogoSVG } from '../components/svg';
-import { FIREBASE_AUTH } from '../FirebaseConfig';
-import { GET_STUDENT_BY_AUTH_ID } from '../graphql';
 import { PostsScreen, PreachPlaceScreen } from '../screens';
-import UserInfo from '../screens/user-info';
 import ContentStack from './content';
-import MoreStack from './more';
 import LibraryStack from './library';
+import MoreStack from './more';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,18 +19,9 @@ type MaterialIconName = React.ComponentProps<
 let iconName: MaterialIconName;
 
 export const Routes: FC = () => {
-  const auth = FIREBASE_AUTH.currentUser?.uid;
+  const { token } = useAuth();
 
-  const { data, loading, error } = useQuery(GET_STUDENT_BY_AUTH_ID, {
-    variables: {
-      authId: auth,
-    },
-  });
-  if (loading) return <Text>Loading...</Text>;
-  if (error) console.log(error);
-
-  console.log(data.student?.authId);
-  console.log('AuthID:', auth);
+  console.log('Token:', token);
 
   return (
     <Tab.Navigator

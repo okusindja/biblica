@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import { Pressable, Text, TextInput, TextInputProps, View } from 'react-native';
+import { Pressable, TextInput, TextInputProps, View } from 'react-native';
 import { scale } from 'react-native-size-matters';
 
 import { ErrorSVG } from '../../components/svg';
+import Typography from '../typography';
 import { InputProps } from './input.types';
 import { styles } from './styles';
-import Typography from '../typography';
 
 const Input: FC<TextInputProps & InputProps> = ({
   variant,
@@ -18,23 +18,25 @@ const Input: FC<TextInputProps & InputProps> = ({
 }) => {
   return (
     <>
-      <Typography
-        variant="legend"
-        style={[
-          styles.inputMessage,
-          {
-            color:
-              variant === 'red'
-                ? '#fff'
-                : variant === 'white' && !inputErrorMessage
-                  ? '#7A7A7A'
-                  : '#E21F2C',
-          },
-        ]}
-      >
-        {title}
-        {inputErrorMessage && ': ' + inputErrorMessage}
-      </Typography>
+      {title && (
+        <Typography
+          variant="legend"
+          style={[
+            styles.inputMessage,
+            {
+              color:
+                variant === 'red'
+                  ? '#fff'
+                  : variant === 'white' && !inputErrorMessage
+                    ? '#7A7A7A'
+                    : '#E21F2C',
+            },
+          ]}
+        >
+          {title}
+          {inputErrorMessage && ': ' + inputErrorMessage}
+        </Typography>
+      )}
       <View
         style={[
           styles.input,

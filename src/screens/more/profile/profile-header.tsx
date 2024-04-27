@@ -1,11 +1,12 @@
-import { View, Text, Pressable } from 'react-native';
-import React, { FC } from 'react';
-import { scale } from 'react-native-size-matters';
-import { CaretLeftSVG, PencilSVG } from '../../../components/svg';
-import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
+import React, { FC } from 'react';
+import { Pressable, View } from 'react-native';
+import { scale } from 'react-native-size-matters';
+
+import { CaretLeftSVG, PencilSVG } from '../../../components/svg';
 import { StackTypes } from '../../../routes/routes.types';
 import { ProfileHeaderProps } from './profile.types';
+import { styles } from './styles';
 
 const ProfileHeader: FC<ProfileHeaderProps> = ({
   hasBackButton = true,

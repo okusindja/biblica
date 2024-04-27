@@ -1,7 +1,9 @@
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 
-export const Container = styled.ScrollView`
-  flex: 1;
-  padding: 20px;
-  background-color: #fff;
-`;
+export const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    flex: 1,
+    padding: 20,
+  },
+});

@@ -6,7 +6,7 @@ export const CREATE_STUDENT = gql`
     $birthdate: DateTime
     $yearsBeingChristian: Int
     $denomination: String
-    $authId: String
+    $email: String
   ) {
     createStudent(
       data: {
@@ -14,12 +14,12 @@ export const CREATE_STUDENT = gql`
         birthdate: $birthdate
         yearsBeingChristian: $yearsBeingChristian
         denomination: $denomination
-        authId: $authId
+        email: $email
       }
     ) {
       id
     }
-    publishStudent(where: { authId: $authId }) {
+    publishStudent(where: { email: $email }) {
       id
     }
   }

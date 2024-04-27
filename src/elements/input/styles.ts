@@ -6,10 +6,10 @@ const width = Dimensions.get('window').width - scale(40);
 export const styles = StyleSheet.create({
   input: {
     alignItems: 'center',
-    borderRadius: scale(50),
-    flexDirection: 'row',
-    borderWidth: 1,
     borderColor: '#CDCDCD',
+    borderRadius: scale(50),
+    borderWidth: 1,
+    flexDirection: 'row',
     height: scale(45),
     marginBottom: scale(10),
     paddingHorizontal: scale(20),
@@ -18,8 +18,8 @@ export const styles = StyleSheet.create({
   inputMessage: {
     fontFamily: 'Poppins_500Medium',
     fontSize: scale(11),
-    paddingLeft: scale(10),
     marginBottom: scale(5),
+    paddingLeft: scale(10),
     textAlign: 'left',
     width: width,
   },
@@ -46,8 +46,8 @@ export const styles = StyleSheet.create({
   },
   onRedBackGround: {
     backgroundColor: '#B13939',
-    color: '#fff',
     borderWidth: 0,
+    color: '#fff',
   },
   onWhiteBackGround: {
     backgroundColor: '#fff',

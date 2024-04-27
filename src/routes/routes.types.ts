@@ -18,6 +18,8 @@ type StackNavigatorProps = {
   'Planos de oração': undefined;
   'Planos de meditação': undefined;
   'Solicitar aconselhamento': undefined;
+  'Gestor de conteúdo': undefined;
+  'Gestão de alunos': undefined;
   Turma: { title: string; author: string; category: string; image: string };
   Aula: { title: string; image: string };
   Avaliação: { title: string; image: string };

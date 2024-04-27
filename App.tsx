@@ -1,6 +1,8 @@
 import 'react-native-gesture-handler';
 
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { theme } from '@design-system/theme';
+import { Typography } from '@elements';
 import {
   Poppins_400Regular,
   Poppins_500Medium,
@@ -13,14 +15,13 @@ import {
 } from '@expo-google-fonts/unifrakturcook';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { onAuthStateChanged, User } from 'firebase/auth';
-import { useEffect, useState } from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import React from 'react';
+import { SafeAreaView } from 'react-native';
+import { ThemeProvider } from 'styled-components';
 
-import { FIREBASE_AUTH } from './src/FirebaseConfig';
+import useAuth from './src/hooks/use-auth';
 import { AuthStack } from './src/routes';
 import { Routes } from './src/routes/bottom-tabs';
-import useAuth from './src/hooks/use-auth';
 
 const client = new ApolloClient({
   uri: 'https://api-sa-east-1.hygraph.com/v2/clf1g63xp2sx801ug9ymbepeg/master',
@@ -32,7 +33,7 @@ const client = new ApolloClient({
 });
 
 export default function App() {
-  const { user, initializing } = useAuth();
+  const { token, user, initializing } = useAuth();
   const [fontsLoaded] = useFonts({
     UnifrakturCook_700Bold,
     Poppins_400Regular,
@@ -42,27 +43,30 @@ export default function App() {
   });
 
   if (initializing) {
-    return <Text>Loading...</Text>;
+    return <Typography variant="paragraph">Loading...</Typography>;
   }
 
   if (!fontsLoaded) {
-    return <Text>Loading...</Text>;
+    return <Typography variant="paragraph">Loading...</Typography>;
   }
 
   console.log('User:', user);
+  console.log('Token:', token);
 
   return (
     <ApolloProvider client={client}>
-      <NavigationContainer>
-        <StatusBar style="auto" />
-        {user?.uid ? (
-          <SafeAreaView style={{ flex: 1 }}>
-            <Routes />
-          </SafeAreaView>
-        ) : (
-          <AuthStack />
-        )}
-      </NavigationContainer>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <StatusBar style="auto" />
+          {token && user ? (
+            <SafeAreaView style={{ flex: 1 }}>
+              <Routes />
+            </SafeAreaView>
+          ) : (
+            <AuthStack />
+          )}
+        </NavigationContainer>
+      </ThemeProvider>
     </ApolloProvider>
   );
 }

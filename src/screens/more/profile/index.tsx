@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import useAuth from '@hooks/use-auth';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
@@ -8,21 +9,20 @@ import { PostArticle } from '../../../components';
 import { AuthLayout, Layout } from '../../../components/layout';
 import { ChurchSVG, CrossSVG, HeartSVG } from '../../../components/svg';
 import { Typography } from '../../../elements';
-import { FIREBASE_AUTH } from '../../../FirebaseConfig';
-import { GET_STUDENT_BY_AUTH_ID } from '../../../graphql';
+import { GET_STUDENT_BY_AUTH_EMAIL } from '../../../graphql';
 import ProfileHeader from './profile-header';
 import { styles } from './styles';
 
 const Profile = () => {
-  const auth = FIREBASE_AUTH.currentUser?.uid;
-  const { data, loading, error } = useQuery(GET_STUDENT_BY_AUTH_ID, {
+  const { user } = useAuth();
+  const { data, loading, error } = useQuery(GET_STUDENT_BY_AUTH_EMAIL, {
     notifyOnNetworkStatusChange: true,
     variables: {
-      authId: auth,
+      email: user?.email,
     },
   });
 
-  const student = data.student;
+  const student = data?.student;
 
   if (loading) return <Text>Loading...</Text>;
   if (error) console.log(error);

@@ -1,4 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ContentManager from '@screens/content/content-manager';
+import StudentsManager from '@screens/content/content-manager/students';
+import React from 'react';
 
 import { HomeScreen } from '../screens';
 import Advices from '../screens/content/advices';
@@ -29,6 +32,8 @@ const ContentStack = () => {
       <Stack.Screen name="Planos de meditação" component={Meditation} />
       <Stack.Screen name="Planos de oração" component={Praying} />
       <Stack.Screen name="Solicitar aconselhamento" component={Advices} />
+      <Stack.Screen name="Gestor de conteúdo" component={ContentManager} />
+      <Stack.Screen name="Gestão de alunos" component={StudentsManager} />
     </Stack.Navigator>
   );
 };

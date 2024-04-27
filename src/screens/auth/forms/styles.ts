@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     flex: 1,
     justifyContent: 'flex-end',
-    marginBottom: scale(40),
+    marginBottom: verticalScale(20),
     padding: scale(20),
   },
   input: {
@@ -31,9 +31,7 @@ export const styles = StyleSheet.create({
     padding: scale(10),
     width: width,
   },
-  logo: {
-    marginBottom: `${verticalScale(20)}%`,
-  },
+  logo: {},
   textButton: {
     color: '#646464',
     fontFamily: 'Poppins_500Medium',

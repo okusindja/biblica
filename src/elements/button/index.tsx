@@ -1,25 +1,30 @@
-import { View, Text, Pressable } from 'react-native';
 import React, { FC } from 'react';
-import { RightArrowSVG } from '../../components/svg';
+import { Pressable, Text } from 'react-native';
 import { scale } from 'react-native-size-matters';
-import { styles } from './styles';
-import { ButtonProps } from './button.types';
+
 import Typography from '../typography';
+import { ButtonProps } from './button.types';
+import { styles } from './styles';
 
 const Button: FC<ButtonProps> = ({
-  Preffix,
-  Suffix,
-  onPress,
+  Icon,
   title,
-  themeColor,
+  Suffix,
+  Preffix,
+  onPress,
   variant,
+  themeColor,
+  isDisabled,
 }) => {
   return (
     <>
       {variant === 'primary' ? (
         <Pressable
-          style={[styles.button, { backgroundColor: '#000' }]}
-          onPress={onPress}
+          style={[
+            styles.button,
+            { backgroundColor: '#000', opacity: isDisabled ? 0.3 : 1 },
+          ]}
+          onPress={isDisabled ? null : onPress}
         >
           {Preffix && (
             <Preffix maxWidth={scale(24)} maxHeight={scale(24)} color="white" />
@@ -31,8 +36,11 @@ const Button: FC<ButtonProps> = ({
         </Pressable>
       ) : variant === 'secondary' ? (
         <Pressable
-          onPress={onPress}
-          style={[styles.button, { backgroundColor: '#E21F2C' }]}
+          onPress={isDisabled ? null : onPress}
+          style={[
+            styles.button,
+            { backgroundColor: '#E21F2C', opacity: isDisabled ? 0.3 : 1 },
+          ]}
         >
           {Preffix && (
             <Preffix maxWidth={scale(24)} maxHeight={scale(24)} color="white" />
@@ -43,7 +51,10 @@ const Button: FC<ButtonProps> = ({
           )}
         </Pressable>
       ) : variant === 'text' ? (
-        <Pressable style={styles.buttomTextWrapper} onPress={onPress}>
+        <Pressable
+          style={styles.buttomTextWrapper}
+          onPress={isDisabled ? null : onPress}
+        >
           {Preffix && (
             <Preffix
               maxWidth={scale(24)}
@@ -73,6 +84,46 @@ const Button: FC<ButtonProps> = ({
               }
             />
           )}
+        </Pressable>
+      ) : variant === 'icon' && Icon ? (
+        <Pressable
+          style={[
+            styles.button,
+            {
+              backgroundColor: '#E21F2C',
+              width: scale(40),
+              height: scale(40),
+              borderRadius: scale(20),
+              opacity: isDisabled ? 0.3 : 1,
+            },
+          ]}
+          onPress={isDisabled ? null : onPress}
+        >
+          <Icon
+            maxWidth={scale(24)}
+            maxHeight={scale(24)}
+            color={themeColor === 'red' ? '#E21F2C' : '#fff'}
+          />
+        </Pressable>
+      ) : variant === 'icon-variant' && Icon ? (
+        <Pressable
+          style={[
+            styles.button,
+            {
+              backgroundColor: '#000000',
+              width: scale(40),
+              height: scale(40),
+              borderRadius: scale(20),
+              opacity: isDisabled ? 0.3 : 1,
+            },
+          ]}
+          onPress={isDisabled ? null : onPress}
+        >
+          <Icon
+            maxWidth={scale(24)}
+            maxHeight={scale(24)}
+            color={themeColor === 'red' ? '#E21F2C' : '#fff'}
+          />
         </Pressable>
       ) : null}
     </>

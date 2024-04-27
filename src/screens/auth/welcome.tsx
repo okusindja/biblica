@@ -1,5 +1,7 @@
+import useAuth from '@hooks/use-auth';
 import React, { FC } from 'react';
 import { Pressable, Text, View } from 'react-native';
+import Animated, { SlideInDown, SlideOutUp } from 'react-native-reanimated';
 import { scale, verticalScale } from 'react-native-size-matters';
 
 import { LogoSVG, RightArrowSVG } from '../../components/svg';
@@ -8,15 +10,22 @@ import Slider from './slider';
 import { styles } from './styles';
 
 const Welcome: FC<AuthPagesProps> = ({ onPressLogin, onPressSignUp }) => {
+  const { token } = useAuth();
+  console.log('Token welcome', token);
+  console.log('Typeof null', typeof token?.toString());
   return (
     <>
-      <View style={styles.logo}>
+      <Animated.View
+        style={styles.logo}
+        entering={SlideInDown}
+        exiting={SlideOutUp}
+      >
         <LogoSVG
           maxWidth={scale(60)}
           maxHeight={verticalScale(108)}
           secondary
         />
-      </View>
+      </Animated.View>
       <View style={styles.bottomInformations}>
         <Slider />
         <View style={styles.buttomWrapper}>

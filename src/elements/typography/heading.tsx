@@ -1,8 +1,9 @@
-import { View, Text, TextProps } from 'react-native';
 import React, { FC, PropsWithChildren } from 'react';
-import { HeadingProps } from './typography.types';
-import { styles } from './styles';
+import { Text, TextProps } from 'react-native';
 import { scale } from 'react-native-size-matters';
+
+import { styles } from './styles';
+import { HeadingProps } from './typography.types';
 
 const Heading: FC<PropsWithChildren<TextProps & HeadingProps>> = ({
   themeColor,

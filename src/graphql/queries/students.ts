@@ -15,10 +15,10 @@ export const GET_STUDENTS = gql`
   }
 `;
 
-export const GET_STUDENT_BY_AUTH_ID = gql`
-  query getStudent($authId: String!) {
-    student(where: { authId: $authId }) {
-      authId
+export const GET_STUDENT_BY_AUTH_EMAIL = gql`
+  query getStudent($email: String!) {
+    student(where: { email: $email }) {
+      email
       name
       birthdate
       denomination

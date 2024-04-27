@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
+import useAuth from '@hooks/use-auth';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import React, { FC, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
@@ -6,25 +7,23 @@ import { scale } from 'react-native-size-matters';
 
 import { AuthLayout } from '../../components/layout';
 import { Button, DateInput, Input, Typography } from '../../elements';
-import { FIREBASE_AUTH } from '../../FirebaseConfig';
-import { CREATE_STUDENT, GET_STUDENT_BY_AUTH_ID } from '../../graphql';
+import { CREATE_STUDENT, GET_STUDENT_BY_AUTH_EMAIL } from '../../graphql';
 import { styles } from '../auth/forms/styles';
 import ProfileHeader from '../more/profile/profile-header';
 
 const UserInfo: FC = () => {
-  // const navigation = useNavigation();
-  const authId = FIREBASE_AUTH.currentUser!.uid;
+  const { user } = useAuth();
   const {
     data,
     loading: loadingStudent,
     error: errorStudent,
-  } = useQuery(GET_STUDENT_BY_AUTH_ID, {
+  } = useQuery(GET_STUDENT_BY_AUTH_EMAIL, {
     fetchPolicy: 'cache-and-network',
     variables: {
-      authId: authId,
+      email: user?.email,
     },
   });
-  const student = data.student;
+  const student = data?.student;
   const [name, setName] = useState(student?.name ? student?.name : '');
   const [birthDate, setBirthDate] = useState<Date>(
     new Date() || student?.birthdate
@@ -35,8 +34,6 @@ const UserInfo: FC = () => {
   const [yearsBeingChristian, setYearsBeingChristian] = useState(
     student?.yearsBeingChristian ? student?.yearsBeingChristian : ''
   );
-  // const [photo, setPhoto] = useState('');
-  // const [canSaveChanges, setCanSaveChanges] = useState(false);
 
   const convertedDate = birthDate.toISOString();
 
@@ -45,28 +42,12 @@ const UserInfo: FC = () => {
   const [createStudent, { loading, error }] = useMutation(CREATE_STUDENT, {
     variables: {
       name: name,
+      email: user?.email,
       birthdate: convertedDate,
-      yearsBeingChristian: numericValue,
       denomination: denomination,
-      authId: authId,
+      yearsBeingChristian: numericValue,
     },
   });
-
-  // useEffect(() => {
-  //   if (
-  //     (name != '' || name != student.name) &&
-  //     (denomination != '' || denomination != student.denomination) &&
-  //     (yearsBeingChristian != '' ||
-  //       yearsBeingChristian != student.yearsBeingChristian)
-  //   ) {
-  //     setCanSaveChanges(true);
-  //     console.log('Can save changes');
-  //   }
-  // }, [name, denomination, yearsBeingChristian]);
-
-  // const handleCannotSaveChanges = () => {
-  //   console.log('Cannot save changes');
-  // };
 
   if (loadingStudent) return <ActivityIndicator />;
   if (errorStudent) return <Text>{errorStudent.message}</Text>;
@@ -98,11 +79,8 @@ const UserInfo: FC = () => {
   const handleMutation = async () => {
     try {
       const result = await createStudent();
-      // navigation.navigate('Início');
-      // Handle successful mutation result
       console.log('Mutation result:', result);
     } catch (error) {
-      // Handle mutation error
       console.error('Mutation error:', error);
     }
   };

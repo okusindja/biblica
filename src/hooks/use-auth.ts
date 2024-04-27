@@ -1,5 +1,5 @@
 import { FirebaseError } from '@firebase/app';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -12,15 +12,16 @@ import { useEffect, useState } from 'react';
 import { FIREBASE_AUTH } from '../FirebaseConfig';
 
 const useAuth = () => {
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [initializing, setInitializing] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [missingPasswordError, setMissingPasswordError] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+  const [emailInUseError, setEmailInUseError] = useState(false);
   const [weakPasswordError, setWeakPasswordError] = useState(false);
   const [invalidEmailError, setInvalidEmailError] = useState(false);
-  const [emailInUseError, setEmailInUseError] = useState(false);
-  const [wrongPasswordError, setWrongPasswordError] = useState(false);
   const [userNotFoundError, setUserNotFoundError] = useState(false);
+  const [wrongPasswordError, setWrongPasswordError] = useState(false);
+  const [missingPasswordError, setMissingPasswordError] = useState(false);
 
   const auth = FIREBASE_AUTH;
 
@@ -31,6 +32,8 @@ const useAuth = () => {
         try {
           const token = await firebaseUser.getIdToken();
           await AsyncStorage.setItem('userToken', token);
+          const hasToken = await AsyncStorage.getItem('userToken');
+          if (hasToken) setToken(token);
         } catch (error) {
           console.error('Error storing token:', error);
         }
@@ -87,6 +90,9 @@ const useAuth = () => {
     setLoading(true);
     try {
       await signOut(auth);
+      await AsyncStorage.removeItem('userToken');
+      setToken(null);
+      console.log('User signed out, token removed.', token);
     } catch (error) {
       console.error(error);
     } finally {
@@ -167,20 +173,21 @@ const useAuth = () => {
 
   return {
     user,
-    initializing,
     login,
+    token,
     logout,
     loading,
     createUser,
-    missingPasswordError,
-    weakPasswordError,
-    invalidEmailError,
-    emailInUseError,
-    wrongPasswordError,
-    userNotFoundError,
     resetErrors,
-    handleCreateUserErrors,
+    initializing,
+    emailInUseError,
+    invalidEmailError,
+    weakPasswordError,
+    userNotFoundError,
     handleLoginErrors,
+    wrongPasswordError,
+    missingPasswordError,
+    handleCreateUserErrors,
   };
 };
 
