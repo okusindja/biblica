@@ -1,14 +1,14 @@
-import React from 'react';
-import { Text } from 'react-native'
-import { Container, ContentText } from './styles'
-import { ContentHeader, Skeleton } from '../../../components';
 import { useQuery } from '@apollo/client';
-import { GET_ALL_MATERIALS } from "../../../graphql";
+import React from 'react';
+
+import { ContentHeader, Skeleton } from '../../../components';
+import { GET_ALL_MATERIALS } from '../../../graphql';
+import { Container, ContentText } from './styles';
 
 const Gospel = () => {
-  const {loading, data} = useQuery(GET_ALL_MATERIALS);
-  
-  if(loading) return <Skeleton form='banner-text' />
+  const { loading, data } = useQuery(GET_ALL_MATERIALS);
+
+  if (loading) return <Skeleton form="banner-text" />;
 
   return (
     <Container>
